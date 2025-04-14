@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  song: one
+  song_metadata_tag: one
+
+two:
+  song: two
+  song_metadata_tag: two
