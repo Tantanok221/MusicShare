@@ -1,3 +1,1 @@
-<button class="<%=classes %>">
-<%= @label %>
-</button>
+<%= tag.public_send(@tag, @label, **html_attributes) %>
