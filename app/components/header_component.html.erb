@@ -1,0 +1,18 @@
+<div class="px-6 py-3 flex outline-slate-200 justify-between outline outline-1">
+  <div class="font-semibold text-xl">AlbumNest</div>
+  <div class="flex gap-4">
+    <%= render(ButtonComponent.new(
+      label: "Login",
+      tag: :a,
+      attr: { href: new_user_session_path }
+    )) %>
+
+    <%= render(ButtonComponent.new(
+      label: "Sign Up",
+      tag: :a,
+      variant: :secondary,
+      attr: { href: new_user_registration_path }
+    )) %>
+
+  </div>
+</div>
