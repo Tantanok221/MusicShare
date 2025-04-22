@@ -18,13 +18,13 @@ class ButtonComponent < ViewComponent::Base
   end
 
   def base_classes
-    "py-2 px-4 rounded-md text-sm font-medium font-sans text-primary-foreground"
+    "py-2 px-4 rounded-md text-sm font-medium font-sans"
   end
 
   def variant_classes
     {
-      primary: "bg-primary",
-      secondary: "bg-secondary",
+      primary: "bg-primary  text-primary-foreground",
+      secondary: "bg-secondary text-secondary-foreground",
     }
   end
 end
