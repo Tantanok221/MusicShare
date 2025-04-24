@@ -1,9 +1,90 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+require 'faker'
+
+# Clear existing data to avoid duplicates when reseeding
+Review.delete_all
+Song.delete_all
+AlbumGenreMapping.delete_all
+AlbumArtistMapping.delete_all
+Album.delete_all
+Artist.delete_all
+Genre.delete_all
+User.delete_all
+
+# Create users for reviews
+users = 5.times.map do
+  User.create!(
+    username: Faker::Name.name,
+    email: Faker::Internet.unique.email,
+    password: "test123",
+    role: "user",
+    created_at: Time.now,
+    updated_at: Time.now
+  )
+end
+
+# Create genres
+genres = ["Pop", "Rock", "Hip-Hop", "Jazz", "Electronic"].map do |genre_name|
+  Genre.create!(genre_name: genre_name)
+end
+
+# Create artists
+artists = 5.times.map do
+  Artist.create!(
+    name: Faker::Music.band,
+    bio: Faker::Lorem.paragraph(sentence_count: 2),
+    profile_image_url: Faker::Avatar.image,
+    created_at: Time.now
+  )
+end
+
+# Create albums and associate with artists + genres
+albums = 10.times.map do
+  album = Album.create!(
+    name: Faker::Music.album,
+    album_image_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['music']),
+    rating: rand(1.0..5.0),
+    release_date: Faker::Date.backward(days: 1000),
+    created_at: Time.now,
+    updated_at: Time.now
+  )
+
+  # Link to 1-2 random artists
+  artists.sample(2).each do |artist|
+    AlbumArtistMapping.create!(album_id: album.id, artist_id: artist.id)
+  end
+
+  # Link to 1-3 random genres
+  genres.sample(2).each do |genre|
+    AlbumGenreMapping.create!(album_id: album.id, genre_id: genre.id)
+  end
+
+  album
+end
+
+# Create songs for each album
+songs = albums.flat_map do |album|
+  4.times.map do
+    Song.create!(
+      album_id: album.id,
+      title: Faker::Music::RockBand.song,
+      popularity_score: rand(0.0..100.0).round(2),
+      created_at: Time.now,
+      updated_at: Time.now
+    )
+  end
+end
+
+# Create reviews for some albums by random users
+albums.sample(7).each do |album|
+  2.times do
+    Review.create!(
+      user_id: users.sample.id,
+      album_id: album.id,
+      rating: rand(1.0..5.0),
+      comment: Faker::Lorem.sentence(word_count: 10),
+      created_at: Time.now
+    )
+  end
+end
+
+puts "✅ Seeded artists, albums, songs, genres, and reviews!"
