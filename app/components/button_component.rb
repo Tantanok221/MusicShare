@@ -6,7 +6,6 @@ class ButtonComponent < ViewComponent::Base
     @variant = variant.to_sym
     @tag = tag.to_sym
     @attr = attr
-
   end
 
   def classes
@@ -14,11 +13,14 @@ class ButtonComponent < ViewComponent::Base
   end
 
   def html_attributes
-    @attr.merge(class: classes)
+    existing = @attr[:class]
+    merged_class = [classes, existing].compact.join(" ")
+    @attr.merge(class: merged_class)
   end
 
+
   def base_classes
-    "py-2 px-4 rounded-md text-sm font-medium font-sans"
+    "py-2 px-4 rounded-md text-sm font-medium font-sans text-center cursor-pointer"
   end
 
   def variant_classes
