@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_24_065226) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_07_084049) do
   create_table "album_artist_mappings", force: :cascade do |t|
     t.integer "album_id", null: false
     t.integer "artist_id", null: false
@@ -81,6 +81,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_24_065226) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
+  create_table "song_artist_mappings", force: :cascade do |t|
+    t.integer "song_id", null: false
+    t.integer "artist_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_song_artist_mappings_on_artist_id"
+    t.index ["song_id"], name: "index_song_artist_mappings_on_song_id"
+  end
+
   create_table "song_metadata_tags", force: :cascade do |t|
     t.string "tag_name"
     t.datetime "created_at", null: false
@@ -138,6 +147,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_24_065226) do
   add_foreign_key "playlists", "users"
   add_foreign_key "reviews", "albums"
   add_foreign_key "reviews", "users"
+  add_foreign_key "song_artist_mappings", "artists"
+  add_foreign_key "song_artist_mappings", "songs"
   add_foreign_key "song_tag_mappings", "song_metadata_tags"
   add_foreign_key "song_tag_mappings", "songs"
   add_foreign_key "songs", "albums"
