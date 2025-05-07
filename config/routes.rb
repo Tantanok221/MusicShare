@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
+  get "admin/home"
+  devise_for :users, :controllers => { registrations: 'users/registrations' }
   get "page/index"
   root "page#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
