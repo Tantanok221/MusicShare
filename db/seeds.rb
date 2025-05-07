@@ -3,6 +3,7 @@ require 'faker'
 # Clear existing data to avoid duplicates when reseeding
 Review.delete_all
 Song.delete_all
+SongArtistMapping.delete_all
 AlbumGenreMapping.delete_all
 AlbumArtistMapping.delete_all
 Album.delete_all
@@ -74,6 +75,18 @@ songs = albums.flat_map do |album|
   end
 end
 
+# Link each song to the same artists as their album
+songs.each do |song|
+  album_artist_ids = AlbumArtistMapping.where(album_id: song.album_id).pluck(:artist_id)
+
+  album_artist_ids.each do |artist_id|
+    SongArtistMapping.create!(
+      song_id: song.id,
+      artist_id: artist_id
+    )
+  end
+end
+
 # Create reviews for some albums by random users
 albums.sample(7).each do |album|
   2.times do
@@ -87,4 +100,4 @@ albums.sample(7).each do |album|
   end
 end
 
-puts "✅ Seeded artists, albums, songs, genres, and reviews!"
+puts "✅ Seeded users, artists, albums, genres, songs, song-artist mappings, and reviews!"
