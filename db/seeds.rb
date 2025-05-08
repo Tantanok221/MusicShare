@@ -10,6 +10,8 @@ Album.delete_all
 Artist.delete_all
 Genre.delete_all
 User.delete_all
+Playlist.delete_all
+PlaylistSongMapping.delete_all
 
 # Create users for reviews
 users = 5.times.map do
@@ -100,4 +102,25 @@ albums.sample(7).each do |album|
   end
 end
 
+users.each do |user|
+  rand(1..2).times do
+    playlist = Playlist.create!(
+      user_id: user.id,
+      playlist_name: "#{Faker::Music.genre} Vibes",
+      category: ["Chill", "Workout", "Focus", "Party", "Mood"].sample,
+      created_at: Time.now
+    )
+
+    # Add 3-5 random songs to each playlist
+    songs.sample(rand(3..5)).each do |song|
+      PlaylistSongMapping.create!(
+        playlist_id: playlist.id,
+        song_id: song.id
+      )
+    end
+  end
+end
+
+
 puts "✅ Seeded users, artists, albums, genres, songs, song-artist mappings, and reviews!"
+puts "✅ Also seeded playlists and playlist-song mappings!"
