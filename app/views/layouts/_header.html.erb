@@ -15,13 +15,13 @@
         attr: { href: new_user_registration_path }
       )) %>
     <% else %>
-      <button class="px-4 py-2 outline outline-1 flex gap-4 rounded-md pointer-cursor items-center justify-center">
-        <p class="text-sm text-foreground ">
+      <%= link_to user_modal_path, data: { turbo_frame: "user_modal" }, class: "px-4 py-2 outline outline-1 flex gap-4 rounded-md cursor-pointer items-center justify-center" do %>
+        <p class="text-sm text-foreground">
           <%= current_user.username %>
         </p>
         <%= phosphor_icon "caret-down", height: 16 %>
-      </button>
+      <% end %>
     <% end %>
   </div>
 </div>
-  <%= turbo_frame_tag :user_modal %>
+<%= turbo_frame_tag "user_modal" %>

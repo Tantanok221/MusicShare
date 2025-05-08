@@ -23,12 +23,15 @@
   <%# Includes all stylesheet files in app/assets/stylesheets %>
   <%= stylesheet_link_tag :app, "data-turbo-track": Rails.env.production? ? "reload" : "" %>
   <%= javascript_importmap_tags %>
+  <%= turbo_page_requires_reload %>
+
 </head>
 
 <body>
 <%= render "layouts/header" %>
 <div class="px-6 py-3">
   <%= yield %>
+
 </div>
 
 </body>
