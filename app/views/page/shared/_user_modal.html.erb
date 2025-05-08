@@ -1,6 +1,4 @@
-<%= turbo_frame_tag "user_modal" do %>
-  <div class="absolute right-6 mt-2 p-4 bg-white border rounded shadow">
-    <p>Hello, <%= current_user.username %>!</p>
-    <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "text-red-600" %>
-  </div>
-<% end %>
+<div x-show="open" @click.outside="open = false" class="absolute right-6 mt-2 p-4 bg-white border rounded shadow">
+  <p>Hello, <%= current_user.username %>!</p>
+  <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "text-red-600" %>
+</div>

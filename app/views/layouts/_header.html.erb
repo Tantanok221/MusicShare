@@ -1,27 +1,33 @@
-<div class="px-6 py-3 flex outline-slate-200 justify-between outline outline-1">
-  <%= link_to "AlbumNest", root_path, class: "font-semibold text-xl" %>
-  <div class="flex gap-4">
-    <% if current_user.blank? %>
-      <%= render(ButtonComponent.new(
-        label: "Login",
-        tag: :a,
-        attr: { href: new_user_session_path }
-      )) %>
+<div x-data="{ open: false }">
+  <div class="px-6 py-3 flex outline-slate-200 justify-between outline outline-1">
+    <%= link_to "AlbumNest", root_path, class: "font-semibold text-xl" %>
 
-      <%= render(ButtonComponent.new(
-        label: "Sign Up",
-        tag: :a,
-        variant: :secondary,
-        attr: { href: new_user_registration_path }
-      )) %>
-    <% else %>
-      <%= link_to user_modal_path, data: { turbo_frame: "user_modal" }, class: "px-4 py-2 outline outline-1 flex gap-4 rounded-md cursor-pointer items-center justify-center" do %>
-        <p class="text-sm text-foreground">
-          <%= current_user.username %>
-        </p>
-        <%= phosphor_icon "caret-down", height: 16 %>
+    <div class="flex gap-4">
+      <% if current_user.blank? %>
+        <%= render(ButtonComponent.new(
+          label: "Login",
+          tag: :a,
+          attr: { href: new_user_session_path }
+        )) %>
+
+        <%= render(ButtonComponent.new(
+          label: "Sign Up",
+          tag: :a,
+          variant: :secondary,
+          attr: { href: new_user_registration_path }
+        )) %>
+      <% else %>
+        <button
+          @click="open = ! open"
+
+          class="px-4 py-2 outline outline-1 flex gap-4 rounded-md cursor-pointer items-center justify-center">
+          <p class="text-sm text-foreground">
+            <%= current_user.username %>
+          </p>
+          <%= phosphor_icon "caret-down", height: 16 %>
+        </button>
       <% end %>
-    <% end %>
+    </div>
   </div>
+  <%= render "page/shared/user_modal" %>
 </div>
-<%= turbo_frame_tag "user_modal" %>

@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   get "page/index"
   root "page#index"
   get "search", to: "page#search", as: :search
-  get "user_modal", to: "page#user_modal"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
