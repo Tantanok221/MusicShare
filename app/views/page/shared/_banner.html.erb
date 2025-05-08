@@ -5,5 +5,10 @@
   <p class="text-muted-foreground font-medium text-base text-center">
     Personalized Recommendations based on your listen preferences
   </p>
+  <%= form_tag search_path, method: :get do %>
+    <%= label_tag :search_by_name %>
+    <%= text_field_tag :search_by_name, params[:search_by_name] %>
+    <%= submit_tag "Search" %>
+  <% end %>
 
 </div>
