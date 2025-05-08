@@ -209,10 +209,16 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     ostruct (0.6.1)
+    ox (2.14.22)
+      bigdecimal (>= 3.0)
     parallel (1.27.0)
     parser (3.3.8.0)
       ast (~> 2.4.1)
       racc
+    phosphor_icons (0.3.0)
+      actionview
+      ox (~> 2.14)
+      railties
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -418,6 +424,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  phosphor_icons (~> 0.3.0)
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.2)
