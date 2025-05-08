@@ -10,6 +10,10 @@ class Album < ApplicationRecord
     where("name like ?", "#{name}%")
   end
 
+  scope :highest_rated, -> {
+    order(rating: :desc)
+  }
+
   scope :with_associations, -> {
     includes(:album_artist_mappings, :artists, :album_genre_mappings, :genres)
   }

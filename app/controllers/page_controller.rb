@@ -1,7 +1,6 @@
 class PageController < ApplicationController
   def index
-    @albums = Album.with_associations
-
+    @albums = Album.with_associations.highest_rated.limit(4)
   end
 
   def search
