@@ -4,11 +4,11 @@
     <h3 class="text-black text-2xl font-semibold">
       Recommend Album For You
     </h3>
-
-    <% @albums.each do |album| %>
-      <h1> <%= album.name %></h1>
-    <% end %>
-
+    <div class="flex flex-row gap-12">
+      <% @albums.each do |album| %>
+        <%= render(AlbumComponent.new(album: album)) %>
+      <% end %>
+    </div>
   </div>
   <%= render "page/shared/list" %>
 </div>
