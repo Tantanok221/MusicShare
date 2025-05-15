@@ -1,16 +1,20 @@
+  <%#= @album.inspect %>
+
 <div class="flex flex-col outline outline-1 outline-border rounded-lg">
   <div class="p-6">
-    <div class="w-full h-64 bg-neutral-300 rounded-lg"></div>
-
+    <img src="<%= @album.album_image_url %>" alt="<%= @album.name %>" class="w-full h-64 bg-neutral-300 rounded-lg" />
     <div class="flex flex-col gap-2">
       <h2 class="text-xl font-semibold">
-        test
+        <%= @album.name %>
       </h2>
 
       <div class="flex flex-row gap-1.5">
         <div class="flex flex-row gap-4">
-          <span class="bg-muted-foreground text-white text-xs px-1 py-1.5 rounded">Rock</span>
-          <span class="bg-muted-foreground text-white text-xs px-1 py-1.5 rounded">Metal</span>
+          <%# @album.genres.each do |genre| %>
+<!--            <span class="bg-muted-foreground text-white text-[0.5rem] px-1 py-0.5 rounded">-->
+              <%#= genre.name %>
+<!--            </span>-->
+          <%# end %>
         </div>
       </div>
 
@@ -19,10 +23,11 @@
         it.</p>
 
       <div class="flex flex-row justify-between">
-        <h2 class="text-xs font-medium">Bill Haley and His Comets - 1954</h2>
-        <div class="flex flex-row gap-1">
-          <!--<svg>star</svg>-->
-          <p class="text-xs font-medium">3.4</p>
+        <h2 class="text-xs font-medium">Bill Haley and His Comets - <%= @album.release_date.year %></h2>
+        <div>
+          <p class="flex flex-row gap 1 items-center text-xs font-medium">
+            <%= phosphor_icon "star", class: "h-3.5 w-3.5" %><%= number_with_precision(@album.rating, precision: 2) %>
+          </p>
         </div>
       </div>
     </div>
