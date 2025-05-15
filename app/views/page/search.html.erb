@@ -9,9 +9,11 @@
         </div>
     </div>
     <% if @albums.present? %>
-    <%= @albums.each do |album| %>
-    <h1> <%= album.name %></h1>
-    <% end %>
+    <div class="grid grid-cols-4 gap-12">
+        <% @albums.each do |album| %>
+        <%= render(AlbumComponent.new(album: album)) %>
+        <% end %>
+    </div>
     <% else %>
     <h1>No album founds</h1>
     <% end %>
