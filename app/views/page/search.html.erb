@@ -1,7 +1,6 @@
-<%= render SearchBoxComponent.new(form_path: search_path) %>
-<% if @albums.present? %>
-<%= @albums.each do |album| %>
-<h1> <%= album.name %></h1>
+<%= render SortByComponent.new(selected: params[:sort]) %>
+
+<%= render SearchBoxComponent.new(form_path: search_path) %> <% if @albums.present? %> <%= @albums.each do |album| %> <h1> <%= album.name %></h1>
 <% end %>
 <% else %>
 <h1>No album founds</h1>

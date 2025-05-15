@@ -1,5 +1,4 @@
 <div class="relative" x-data="{ open: false, selected: '<%= @selected %>', placeholder: '<%= @placeholder %>' }" @click.outside="open = false" @keydown.escape.window="open = false">
-
     <button type="button" @click="open = !open" :aria-expanded="open" class="<%= trigger_classes %>" aria-haspopup="listbox">
         <span x-text="selected || placeholder" class="truncate"></span>
         <%= phosphor_icon "caret-down", class: "h-4 w-4 opacity-50" %>
