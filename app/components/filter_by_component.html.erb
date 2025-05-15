@@ -4,13 +4,15 @@
   name: :filter_by,
   options: filter_by_rating,
   selected: @selected,
-  placeholder: "Filter by rating..."
+  placeholder: "Filter by rating...",
+  label: "Filter by rating"
 ) %>
 <% when :genre %>
 <%= render SelectComponent.new(
   name: :filter_by,
   options: filter_by_genre,
   selected: @selected,
-  placeholder: "Filter by genre..."
+  placeholder: "Filter by genre...",
+  label: "Filter by genre"
 ) %>
 <% end %>

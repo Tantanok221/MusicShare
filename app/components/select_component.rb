@@ -5,12 +5,13 @@ class SelectComponent < ViewComponent::Base
   include Sortable
   include Filterable
 
-  def initialize(name:, options:, selected: nil, placeholder: "Select an option", form: nil)
+  def initialize(name:, options:, selected: nil, placeholder: "Select an option", form: nil, label: nil)
     @name = name
     @options = options
     @selected = selected
     @placeholder = placeholder
     @form = form
+    @label = label
   end
 
   private

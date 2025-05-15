@@ -1,14 +1,15 @@
 <div>
-  <%= render "page/shared/banner" %>
-  <div class="flex flex-col gap-4">
-    <h3 class="text-black text-2xl font-semibold">
-      Recommend Album For You
-    </h3>
-    <div class="flex flex-row gap-12">
-      <% @albums.each do |album| %>
-        <%= render(AlbumComponent.new(album: album)) %>
-      <% end %>
+    <%= render "page/shared/banner" %>
+    <div class="flex flex-col gap-4">
+        <h3 class="text-black text-2xl font-semibold">
+            Recommend Album For You
+        </h3>
+        <div class="flex flex-row gap-12">
+            <% @albums.each do |album| %>
+            <%= render(AlbumComponent.new(album: album)) %>
+
+            <% end %>
+        </div>
     </div>
-  </div>
-  <%= render "page/shared/list" %>
+    <%= render "page/shared/list" %>
 </div>

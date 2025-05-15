@@ -1,19 +1,24 @@
-<div class="relative" x-data="{ open: false, selected: '<%= @selected %>', placeholder: '<%= @placeholder %>' }" @click.outside="open = false" @keydown.escape.window="open = false">
-    <button type="button" @click="open = !open" :aria-expanded="open" class="<%= trigger_classes %>" aria-haspopup="listbox">
-        <span x-text="selected || placeholder" class="truncate"></span>
-        <%= phosphor_icon "caret-down", class: "h-4 w-4 opacity-50" %>
-    </button>
+<div class="flex flex-col gap-1.5">
+    <% if @label %>
+    <label for="<%= select_id %>" class="block text-sm font-medium text-foreground"><%= @label %></label>
+    <% end %>
+    <div class="relative" x-data="{ open: false, selected: '<%= @selected %>', placeholder: '<%= @placeholder %>' }" @click.outside="open = false" @keydown.escape.window="open = false">
+        <button type="button" @click="open = !open" :aria-expanded="open" class="<%= trigger_classes %>" aria-haspopup="listbox" id="<%= select_id %>">
+            <span x-text="selected || placeholder" class="truncate"></span>
+            <%= phosphor_icon "caret-down", class: "h-4 w-4 opacity-50" %>
+        </button>
 
-    <div x-show="open" x-transition class="<%= options_classes %> absolute mt-2 w-full">
-        <div class="p-1">
-            <% @options.each do |value, label| %>
-            <button type="button" @click="selected = '<%= label %>'; open = false; $refs.input.value = '<%= value %>'" :class="{ 'bg-accent text-accent-foreground': selected === '<%= label %>' }" class="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 px-2 text-sm outline-none hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
-                <%= label %>
-            </button>
-            <% end %>
+        <div x-show="open" x-transition class="<%= options_classes %> absolute mt-2 w-full">
+            <div class="p-1">
+                <% @options.each do |value, label| %>
+                <button type="button" @click="selected = '<%= label %>'; open = false; $refs.input.value = '<%= value %>'" :class="{ 'bg-accent text-accent-foreground': selected === '<%= label %>' }" class="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 px-2 text-sm outline-none hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+                    <%= label %>
+                </button>
+                <% end %>
+            </div>
         </div>
-    </div>
 
-    <%= @form.hidden_field @name, value: @selected, "x-ref": "input" if @form %>
-    <%= hidden_field_tag @name, @selected, "x-ref": "input" unless @form %>
+        <%= @form.hidden_field @name, value: @selected, "x-ref": "input" if @form %>
+        <%= hidden_field_tag @name, @selected, "x-ref": "input" unless @form %>
+    </div>
 </div>
