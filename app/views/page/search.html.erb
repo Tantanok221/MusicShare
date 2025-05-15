@@ -1,7 +1,18 @@
-<% if @albums.present? %>
-  <%= @albums.each do |album| %>
+<div class="flex flex-col gap-4">
+    <div class="flex flex-row gap-4 flex-wrap">
+        <div class="flex-1 grid grid-cols-5 gap-4">
+            <%= render SortByComponent.new(selected: default_params[:sort]) %>
+            <%= render SearchByComponent.new(selected: default_params[:search_by]) %>
+            <%= render FilterByComponent.new( variant: :rating) %>
+            <%= render FilterByComponent.new( variant: :genre) %>
+            <%= render SearchBoxComponent.new(form_path: search_path) %>
+        </div>
+    </div>
+    <% if @albums.present? %>
+    <%= @albums.each do |album| %>
     <h1> <%= album.name %></h1>
-  <% end %>
-  <% else %>
-  <h1>No album founds</h1>
-<% end %>
+    <% end %>
+    <% else %>
+    <h1>No album founds</h1>
+    <% end %>
+</div>
