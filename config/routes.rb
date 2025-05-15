@@ -1,6 +1,7 @@
+
 Rails.application.routes.draw do
   get "admin/home"
-  devise_for :users, :controllers => { registrations: 'users/registrations' }
+  devise_for :users, controllers: { registrations: "users/registrations" }
   get "page/index"
   root "page#index"
   get "search", to: "page#search", as: :search

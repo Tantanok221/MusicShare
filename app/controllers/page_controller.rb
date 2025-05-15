@@ -7,6 +7,4 @@ class PageController < ApplicationController
     @albums = Album.with_associations
                    .filter_by_names_with(params[:search_by_name])
   end
-
-
 end

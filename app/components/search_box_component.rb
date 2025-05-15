@@ -5,5 +5,4 @@ class SearchBoxComponent < ViewComponent::Base
         @form_path = form_path
         @search_param = search_param
     end
-
 end
