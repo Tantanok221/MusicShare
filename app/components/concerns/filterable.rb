@@ -3,21 +3,15 @@ module Filterable
 
   def filter_by_rating
     {
-      "1" => "More then 1",
-      "2" => "More then 2",
-      "3" => "More then 3",
-      "4" => "More then 4",
-      "5" => "More then 5"
+      "1" => "1+ Stars",
+      "2" => "2+ Stars",
+      "3" => "3+ Stars",
+      "4" => "4+ Stars",
+      "4.5" => "4.5+ Stars"
     }
   end
 
   def filter_by_genre
-    # Psuedo Example for now
-    {
-      "Rock" => "Rock",
-      "Pop" => "Pop",
-      "Jazz" => "Jazz",
-      "Blues" => "Blues"
-    }
+    Genre.all.map { |genre| [ genre.id.to_s, genre.genre_name ] }.to_h
   end
 end
