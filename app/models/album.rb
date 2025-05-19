@@ -17,5 +17,4 @@ class Album < ApplicationRecord
   scope :with_associations, -> {
     includes(:album_artist_mappings, :artists, :album_genre_mappings, :genres)
   }
-
 end
