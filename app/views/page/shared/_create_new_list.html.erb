@@ -1,47 +1,28 @@
 <div x-data="{ showModal: false }">
-<!--     x-effect="document.body.classList.toggle('overflow-hidden', showModal)"> making the page not scrollable after clicking in the modal-->
-  <div class="flex justify-end">
-    <button
-      @click="showModal = true"
-      class="flex justify-center items-center gap-1 self-stretch bg-secondary font-medium text-sm rounded px-3 py-2"
-    >
-      <%= phosphor_icon "plus", class: "h-3.5 w-3.5" %>
-      Create New List
-    </button>
-  </div>
-
-  <div
-    x-show="showModal"
-    x-transition.opacity
-    x-cloak
-    class="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
-  ></div>
-
-  <div
-    x-show="showModal"
-    x-transition
-    x-cloak
-    class="fixed z-50 top-1/2 left-1/2 w-[90%] max-w-sm -translate-x-1/2 -translate-y-1/2 py-5 px-6 bg-white outline outline-1 rounded-xl shadow-lg space-y-4"
-  >
-    <div class="flex justify-between items-center">
-      <h2 class="text-xl font-semibold">List Name</h2>
-      <button @click="showModal = false">
-        <%= phosphor_icon "x", class: "h-5 w-5" %>
-      </button>
+    <!--     x-effect="document.body.classList.toggle('overflow-hidden', showModal)"> making the page not scrollable after clicking in the modal-->
+    <div class="flex justify-end">
+        <button @click="showModal = true" class="flex justify-center items-center gap-1 self-stretch bg-secondary font-medium text-sm rounded px-3 py-2">
+            <%= phosphor_icon "plus", class: "h-3.5 w-3.5" %>
+            Create New List
+        </button>
     </div>
 
-    <input
-      type="text"
-      placeholder="Kpop..."
-      class="w-full px-3 py-1.5 border rounded-md text-sm font-normal"
-      />
+    <div x-show="showModal" x-transition.opacity x-cloak class="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"></div>
 
-    <button
-      class="flex justify-center items-center w-full px-4 py-2 text-sm rounded-md bg-primary text-primary-foreground gap-1"
-      @click="showModal = false"
-    >
-      <%= phosphor_icon "plus", class: "h-3.5 w-3.5" %>
-      Create New List
-    </button>
-  </div>
+    <div x-show="showModal" x-transition x-cloak class="fixed z-50 top-1/2 left-1/2 w-[90%] max-w-sm -translate-x-1/2 -translate-y-1/2 py-5 px-6 bg-white outline outline-1 rounded-xl shadow-lg space-y-4">
+        <div class="flex justify-between items-center">
+            <h2 class="text-xl font-semibold">List Name</h2>
+            <button @click="showModal = false">
+                <%= phosphor_icon "x", class: "h-5 w-5" %>
+            </button>
+        </div>
+        <%= form_with url: create_playlist_path, method: :post, class: "space-y-4" do |form| %>
+        <%= form.text_field :playlist_name, placeholder: "Playlist Name...", class: "w-full px-3 py-1.5 border rounded-md text-sm font-normal" %>
+
+        <button class="flex justify-center items-center w-full px-4 py-2 text-sm rounded-md bg-primary text-primary-foreground gap-1" @click="showModal = false">
+            <%= phosphor_icon "plus", class: "h-3.5 w-3.5" %>
+            Create New List
+        </button>
+        <% end %>
+    </div>
 </div>

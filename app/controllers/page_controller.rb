@@ -3,7 +3,6 @@ class PageController < ApplicationController
     @albums = Album.with_associations.highest_rated.limit(4)
   end
   def list
-
   end
   def search
     @albums = Album.with_associations
@@ -11,5 +10,9 @@ class PageController < ApplicationController
                    .filter_by_genre(params[:filter_by_genre])
                    .filter_by_rating(params[:filter_by_rating])
                    .order_by(params[:sort_by])
+  end
+
+  def album_details
+    @album = Album.with_associations.find(params[:id])
   end
 end
