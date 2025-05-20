@@ -1,7 +1,7 @@
 <% case @variant %>
 <% when :rating %>
 <%= render SelectComponent.new(
-  name: :filter_by,
+  name: :filter_by_rating,
   options: filter_by_rating,
   selected: @selected,
   placeholder: "Filter by rating...",
@@ -9,7 +9,7 @@
 ) %>
 <% when :genre %>
 <%= render SelectComponent.new(
-  name: :filter_by,
+  name: :filter_by_genre,
   options: filter_by_genre,
   selected: @selected,
   placeholder: "Filter by genre...",

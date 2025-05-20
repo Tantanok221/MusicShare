@@ -1,12 +1,27 @@
 <div class="flex flex-col gap-4">
     <div class="flex flex-row gap-4 flex-wrap">
-        <div class="flex-1 grid grid-cols-5 gap-4">
+        <%= form_tag @form_path, method: :get, class: "w-full" do %>
+        <div class="flex-1 grid grid-cols-6 gap-4 items-end w-full">
             <%= render SortByComponent.new(selected: default_params[:sort]) %>
-            <%= render SearchByComponent.new(selected: default_params[:search_by]) %>
-            <%= render FilterByComponent.new( variant: :rating) %>
-            <%= render FilterByComponent.new( variant: :genre) %>
-            <%= render SearchBoxComponent.new(form_path: search_path) %>
+            <%= render FilterByComponent.new( variant: :rating, selected: default_params[:rating]) %>
+            <%= render FilterByComponent.new( variant: :genre, selected: default_params[:genre]) %>
+            <%= render SearchByComponent.new(selected: default_params[:search_col]) %>
+            <div class="flex flex-col gap-1.5">
+                <label for="search-input" class="block text-sm font-medium text-foreground">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <%= phosphor_icon "magnifying-glass", class: "h-4 w-4 text-muted-foreground" %>
+                    </div>
+                    <%= text_field_tag :search_by_name, 
+                        params[:search_by_name], 
+                        id: "search-input",
+                        class: "h-10 pl-9 pr-3 text-sm rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+                        placeholder: "Search..." %>
+                </div>
+            </div>
+            <%= submit_tag "Search", class: "h-10 px-4 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors" %>
         </div>
+        <% end %>
     </div>
     <% if @albums.present? %>
     <div class="grid grid-cols-4 gap-12">

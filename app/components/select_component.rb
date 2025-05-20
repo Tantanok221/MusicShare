@@ -14,6 +14,10 @@ class SelectComponent < ViewComponent::Base
     @label = label
   end
 
+  def selected_label
+    @options[@selected] || @placeholder
+  end
+
   private
 
   def select_id

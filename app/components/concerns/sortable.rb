@@ -5,10 +5,10 @@ module Sortable
 
   def sort_options
     {
-      "title" => "Title",
-      "rating" => "Rating",
-      "year" => "Year",
-      "artist" => "Artist"
+      "albums.name" => "Title",
+      "rating ASC" => "Rating",
+      "created_at" => "Year",
+      "artists.name" => "Artist"
     }
   end
 end
