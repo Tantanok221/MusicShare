@@ -6,17 +6,17 @@ class Album < ApplicationRecord
   has_many :album_genre_mappings, dependent: :destroy
   has_many :genres, through: :album_genre_mappings
 
-  def self.search_by(name, search_col)
-    return all unless search_col.present?
+  def self.search_by(name, search_col: "albums.name")
+    return all if name.blank?
+
     case search_col
     when "artists.name"
       joins(:artists)
-        .where("artists.name LIKE ?", "#{name}%")
-    when "albums.name"
-      where("albums.name LIKE ?", "#{name}%")
+        .where("artists.name LIKE ?", "%#{name}%")
     else
-      all
-    end  end
+      where("#{search_col} LIKE ?", "%#{name}%")
+    end
+  end
 
   def self.filter_by_rating(rating)
     return all unless rating.present?
