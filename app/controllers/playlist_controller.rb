@@ -12,6 +12,18 @@ class PlaylistController < ApplicationController
     end
   end
 
+  def add_album_to_playlist
+    @playlist = Playlist.find(params[:id])
+    @album = Album.find(params[:album_id])
+    @playlist.songs << @album.songs
+  end
+
+  def add_song_to_playlist
+    @playlist = Playlist.find(params[:id])
+    @song = Song.find(params[:song_id])
+    @playlist.songs << @song
+  end
+
   def playlist_params
     params.permit(:playlist_name)
   end

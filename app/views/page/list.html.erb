@@ -1,22 +1,21 @@
 <h1 class="text-xl font-bold mb-2">Sample name</h1>
 <p class="sm">The first installment in my massive progressive rock listening list, which hopes to provide an outline of
-  what constitutes a "comprehensive" prog rock collection. This particular list covers "classic era" Progressive Rock,
-  and is restricted to bands who released their most significant work during the prog rock heyday of the late-60's
-  through the late-70's. For prog rock artists who didn't begin releasing albums after that time, see my
-  accompanying Modern Progressive Rock. I've also omitted most artists who are more commonly associated with the
-  Krautrock movement, the jazz rock scene, or with the avant-prog/Rock In Opposition movements. </p>
+    what constitutes a "comprehensive" prog rock collection. This particular list covers "classic era" Progressive Rock,
+    and is restricted to bands who released their most significant work during the prog rock heyday of the late-60's
+    through the late-70's. For prog rock artists who didn't begin releasing albums after that time, see my
+    accompanying Modern Progressive Rock. I've also omitted most artists who are more commonly associated with the
+    Krautrock movement, the jazz rock scene, or with the avant-prog/Rock In Opposition movements.</p>
 <div class="py-2">
-  <div class="flex grid grid-cols-6 gap-4 items-center justify-between border px-4 py-3 mb-3">
-    <div class="flex flex-row justify-center items-center gap-2">
-      <div class="w-12 h-12 bg-gray-400 rounded-md"></div>
-      <p class="font-semibold">song name</p>
+    <div class="flex grid grid-cols-6 gap-4 items-center justify-between border px-4 py-3 mb-3">
+        <div class="flex flex-row justify-center items-center gap-2">
+            <div class="w-12 h-12 bg-gray-400 rounded-md"></div>
+            <p class="font-semibold">song name</p>
+        </div>
+        <div class="flex flex-row justify-start">
+            <p class="font-semibold">artist name</p>
+        </div>
+        <p class="font-semibold">year</p>
+        <div class="flex items-center"><%= phosphor_icon "star", class: "h-3 w-3" %><%= number_with_precision(2, precision: 2) %></div>
+        <button class="bg-blue-400 px-3 py-1 rounded">Button A</button>
     </div>
-    <div class="flex flex-row justify-start">
-      <p class="font-semibold">artist name</p>
-    </div>
-    <p class="font-semibold">year</p>
-    <div class="flex items-center"><%= phosphor_icon "star", class: "h-3 w-3" %><%= number_with_precision(2, precision: 2) %></div>
-    <button class="bg-blue-400 px-3 py-1 rounded">Button A</button>
-  </div>
 </div>
-
