@@ -1,10 +1,7 @@
 <h3 class="flex flex-row justify-between text-black text-2xl font-semibold py-6">
   My List
   <% if current_user.present? %>
-    <%= link_to "./list", class: "flex justify-center items-center gap-1 self-stretch bg-secondary font-medium text-sm rounded px-2 py-1" do %>
-      <%= phosphor_icon "plus", class: "h-4 w-4" %>
-      <p>Create New List</p>
-    <% end %>
+      <%= render partial: "page/shared/create_new_list" %>
   <% else %>
   <% end %>
 </h3>
