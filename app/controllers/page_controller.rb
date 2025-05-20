@@ -2,7 +2,9 @@ class PageController < ApplicationController
   def index
     @albums = Album.with_associations.highest_rated.limit(4)
   end
+  def list
 
+  end
   def search
     @albums = Album.with_associations
                    .search_by(params[:search_by_name], search_col: params[:search_col])
