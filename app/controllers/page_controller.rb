@@ -7,6 +7,9 @@ class PageController < ApplicationController
   end
   def search
     @albums = Album.with_associations
-                   .filter_by_names_with(params[:search_by_name])
+                   .search_by(params[:search_by_name], search_col: params[:search_col])
+                   .filter_by_genre(params[:filter_by_genre])
+                   .filter_by_rating(params[:filter_by_rating])
+                   .order_by(params[:sort_by])
   end
 end

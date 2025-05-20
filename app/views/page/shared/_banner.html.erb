@@ -6,6 +6,7 @@
         Personalized Recommendations based on your listen preferences
     </p>
     <%= form_tag search_path, method: :get, class: "flex justify-center items-center gap-2 max-w-2xl mx-auto w-full px-4" do %>
+    <%= hidden_field_tag :search_col, "albums.name" %>
     <div class="flex-1 relative">
         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
             <%= phosphor_icon "magnifying-glass", class: "w-5 h-5 text-muted-foreground" %>

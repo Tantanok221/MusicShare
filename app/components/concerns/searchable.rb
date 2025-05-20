@@ -5,8 +5,8 @@ module Searchable
 
   def search_by_name
     {
-      "title" => "Title",
-      "artist" => "Artist"
+      "albums.name" => "Title",
+      "artists.name" => "Artist"
     }
   end
 end
