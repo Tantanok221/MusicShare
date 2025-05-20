@@ -1,1 +1,10 @@
+<div class="py-6 w-full flex flex-row gap-3 outline outline-1 outline-border">
+    <div class="px-6 flex gap-4 flex-col">
+        <img src="<%= @album.album_image_url %>" class=" h-32 w-32" />
+        <%= render "page/shared/add_to_list" %>
+    </div>
+</div>
+
+
 <%= @album.inspect %>
+<%= @album.songs.inspect %>

@@ -1,22 +1,22 @@
 <%#= @current_user.inspect %>
 <div class="grid grid-cols-2 gap-y-6 gap-x-8 pb-9">
-  <% @playlists.each do |playlist| %>
+    <% @playlists.each do |playlist| %>
     <div class="flex flex-col gap-3 p-6 rounded-lg outline outline-1 outline-border">
-      <div class="flex flex-col gap-0.8">
-        <h1 class="text-xl font-semibold"><%= playlist.playlist_name %></h1>
-        <p class="text-xs text-muted-foreground">Song</p>
-      </div>
-      <div class="flex flex-row gap-4">
-        <% 4.times do %>
-          <div class="w-20 h-24 bg-neutral-300 rounded"></div>
-        <% end %>
-      </div>
-      <%= link_to "./list", class: "flex justify-center items-center gap-2 self-stretch bg-secondary font-medium text-sm rounded py-2" do %>
+        <div class="flex flex-col gap-0.8">
+            <h1 class="text-xl font-semibold"><%= playlist.playlist_name %></h1>
+            <p class="text-xs text-muted-foreground">Song</p>
+        </div>
+        <div class="flex flex-row gap-4">
+            <% 4.times do %>
+            <div class="w-20 h-24 bg-neutral-300 rounded"></div>
+            <% end %>
+        </div>
+        <%= link_to list_path(playlist.id), class: "flex justify-center items-center gap-2 self-stretch bg-secondary font-medium text-sm rounded py-2" do %>
         <%= phosphor_icon "book-open", class: "h-4.5 w-4.5" %>
         <p>View List</p>
-      <% end %>
+        <% end %>
     </div>
-  <% end %>
+    <% end %>
 </div>
 
 <!--<pre><%#= @playlists.inspect %></pre>-->
