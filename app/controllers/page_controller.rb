@@ -2,7 +2,8 @@ class PageController < ApplicationController
   def index
     @albums = Album.with_associations.highest_rated.limit(4)
   end
-  def list
+
+  def playlist_details
     @playlist = Playlist.find(params[:id])
   end
   def search

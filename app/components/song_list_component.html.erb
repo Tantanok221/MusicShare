@@ -1,0 +1,33 @@
+<div class="rounded-lg border bg-card text-card-foreground shadow">
+    <div class="p-6">
+        <div class="space-y-4">
+            <% @songs.each do |song| %>
+            <div class="flex items-center justify-between py-4 first:pt-0 last:pb-0 border-b last:border-0">
+                <div class="flex items-center gap-4 flex-1">
+                    <div class="overflow-hidden rounded-md">
+                        <img src="<%= song.album.album_image_url %>" alt="<%= song.album.name %>" class="h-12 w-12 object-cover" />
+                    </div>
+                    <div class="grid gap-1">
+                        <div class="font-medium leading-none"><%= song.title %></div>
+                        <div class="text-sm text-muted-foreground"><%= song.artists.map(&:name).join(", ") %></div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-8 text-sm">
+                    <div class="text-muted-foreground">
+                        <%= song.album.created_at.strftime("%b %d, %Y") %>
+                    </div>
+                    <div class="flex items-center gap-1 text-black">
+                        <%= phosphor_icon "star", class: "h-4 w-4" %>
+                        <span class="font-medium"><%= number_with_precision(song.album.rating, precision: 1) %></span>
+                    </div>
+                    <button class="inline-flex items-center justify-center gap-2 px-3 py-1.5 text-sm font-medium transition-colors rounded-md hover:bg-red-100 text-red-600 hover:text-red-600">
+                        <%= phosphor_icon "trash", class: "h-4 w-4" %>
+                        <span>Remove</span>
+                    </button>
+                </div>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
