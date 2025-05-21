@@ -1,12 +1,12 @@
 <h3 class="flex flex-row justify-between text-black text-2xl font-semibold py-6">
-  My List
-  <% if current_user.present? %>
-      <%= render partial: "page/shared/create_new_list" %>
-  <% else %>
-  <% end %>
+    Your List
+    <% if current_user.present? %>
+    <%= render partial: "page/shared/create_new_list" %>
+    <% else %>
+    <% end %>
 </h3>
 <% if current_user.present? %>
-  <%= render UserListComponent.new(current_user: current_user) %>
+<%= render UserListComponent.new(current_user: current_user) %>
 <% else %>
-  <div>User not login yet</div>
+<div>User not login yet</div>
 <% end %>
