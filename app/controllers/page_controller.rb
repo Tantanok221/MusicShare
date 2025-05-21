@@ -3,6 +3,7 @@ class PageController < ApplicationController
     @albums = Album.with_associations.highest_rated.limit(4)
   end
   def list
+    @playlist = Playlist.find(params[:id])
   end
   def search
     @albums = Album.with_associations
