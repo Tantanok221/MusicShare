@@ -1,8 +1,45 @@
 <div class="py-6 w-full flex flex-row gap-3 outline outline-1 outline-border">
-    <div class="px-6 flex gap-4 flex-col">
-        <img src="<%= @album.album_image_url %>" class=" h-32 w-32" />
-        <%= render "page/shared/add_to_list" %>
+  <div class="px-6 flex gap-2 flex-col">
+    <img src="<%= @album.album_image_url %>" class="h-56 w-56 rounded-xs"/>
+    <div class="flex flex-row justify-center items-center gap-1">
+      <%= phosphor_icon "youtube-logo", class: "h-7 w-7" %>
+      <%= phosphor_icon "spotify-logo", class: "h-7 w-7" %>
     </div>
+    <%= render "page/shared/add_to_list" %>
+  </div>
+  <div class="flex flex-col px-6 gap-2 ">
+    <div class="flex flex-col gap-1.5 py-1">
+      <p class="text-xl font-semibold"><%= @album.name %></p>
+      <div class="flex flex-row gap-2">
+        <% @album.genres.each do |genre| %>
+                    <span class="bg-muted-foreground text-white text-xs px-2 py-1 rounded">
+                      <%= genre.genre_name %>
+                    </span>
+        <% end %>
+      </div>
+    </div>
+    <p class="text-xs font-medium"><%= @album.artists.map(&:name).join(", ") %> - <%= @album.release_date.year %></p>
+    <p class="flex flex-row gap-1 items-center text-xs font-medium">
+      <%= phosphor_icon "star", class: "h-3.5 w-3.5" %><%= number_with_precision(@album.rating, precision: 2) %>
+    </p>
+    <p class="text-xs font-medium">ratings</p>
+    <p class="text-0.85 font-semibold">Songs</p>
+    <div class="flex flex-col gap-2">
+      <ol class="flex flex-col list-decimal list-outside text-[1rem] font-light">
+        <% @album.songs.each do |song| %>
+          <li>
+            <div class="flex flex-row gap-4 justify-between items-center">
+              <span><%= song.title %></span>
+              <div class="flex flex-row justify-end gap-1">
+                <%= phosphor_icon "plus", class: "h-3.5 w-3.5" %>
+                <%= phosphor_icon "heart", class: "h-3.5 w-3.5" %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+  </div>
 </div>
 
 
