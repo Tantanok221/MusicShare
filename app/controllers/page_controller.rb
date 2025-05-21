@@ -12,6 +12,9 @@ class PageController < ApplicationController
                    .order_by(params[:sort_by])
   end
 
+  def playlist_index
+  end
+
   def album_details
     @album = Album.with_associations.find(params[:id])
   end
