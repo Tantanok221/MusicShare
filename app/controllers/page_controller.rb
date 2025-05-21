@@ -15,6 +15,10 @@ class PageController < ApplicationController
   def playlist_index
   end
 
+  def profile
+    @user = User.find_by(username: params[:username])
+  end
+
   def album_details
     @album = Album.with_associations.find(params[:id])
   end

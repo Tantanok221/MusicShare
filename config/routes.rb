@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get "playlist/:id", to: "page#list", as: :list
   get "album/:id", to: "page#album_details", as: :album_details
   get "playlist", to: "page#playlist_index", as: :list_index
-
+  get "profile/:username", to: "page#profile", as: :profile
   # Playlist routes
   post "create_playlist", to: "playlist#create", as: :create_playlist
   post "add_album_to_playlist", to: "playlist#add_album_to_playlist", as: :add_album_to_playlist
