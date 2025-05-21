@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get "page/index"
   root "page#index"
   get "search", to: "page#search", as: :search
-  get "playlist/:id", to: "page#list", as: :list
+  get "playlist/:id", to: "page#playlist_details", as: :playlist_details
   get "album/:id", to: "page#album_details", as: :album_details
 
   # Playlist routes
