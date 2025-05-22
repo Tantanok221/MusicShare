@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_07_084049) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_22_025435) do
   create_table "album_artist_mappings", force: :cascade do |t|
     t.integer "album_id", null: false
     t.integer "artist_id", null: false
@@ -18,6 +18,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_07_084049) do
     t.datetime "updated_at", null: false
     t.index ["album_id"], name: "index_album_artist_mappings_on_album_id"
     t.index ["artist_id"], name: "index_album_artist_mappings_on_artist_id"
+  end
+
+  create_table "album_external_links", force: :cascade do |t|
+    t.string "platform"
+    t.string "url"
+    t.integer "album_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["album_id"], name: "index_album_external_links_on_album_id"
+    t.index ["platform"], name: "index_album_external_links_on_platform"
   end
 
   create_table "album_genre_mappings", force: :cascade do |t|
@@ -67,6 +77,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_07_084049) do
     t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "bio"
     t.index ["user_id"], name: "index_playlists_on_user_id"
   end
 
@@ -134,12 +145,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_07_084049) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "username"
+    t.text "bio"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "album_artist_mappings", "albums"
   add_foreign_key "album_artist_mappings", "artists"
+  add_foreign_key "album_external_links", "albums"
   add_foreign_key "album_genre_mappings", "albums"
   add_foreign_key "album_genre_mappings", "genres"
   add_foreign_key "playlist_song_mappings", "playlists"
