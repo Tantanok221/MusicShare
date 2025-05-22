@@ -1,17 +1,19 @@
 require 'faker'
 
 # Clear existing data to avoid duplicates when reseeding
+# Delete in correct order to respect foreign key constraints
+PlaylistSongMapping.delete_all
+Playlist.delete_all
 Review.delete_all
-Song.delete_all
 SongArtistMapping.delete_all
+Song.delete_all
+AlbumExternalLink.delete_all
 AlbumGenreMapping.delete_all
 AlbumArtistMapping.delete_all
 Album.delete_all
 Artist.delete_all
 Genre.delete_all
 User.delete_all
-Playlist.delete_all
-PlaylistSongMapping.delete_all
 
 # Create users for reviews
 users = 5.times.map do
@@ -20,13 +22,14 @@ users = 5.times.map do
     email: Faker::Internet.unique.email,
     password: "test123",
     role: "user",
+    bio: Faker::Lorem.paragraph(sentence_count: 2),
     created_at: Time.now,
     updated_at: Time.now
   )
 end
 
 # Create genres
-genres = ["Pop", "Rock", "Hip-Hop", "Jazz", "Electronic"].map do |genre_name|
+genres = [ "Pop", "Rock", "Hip-Hop", "Jazz", "Electronic" ].map do |genre_name|
   Genre.create!(genre_name: genre_name)
 end
 
@@ -44,7 +47,7 @@ end
 albums = 10.times.map do
   album = Album.create!(
     name: Faker::Music.album,
-    album_image_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['music']),
+    album_image_url: Faker::LoremFlickr.image(size: "300x300", search_terms: [ 'music' ]),
     rating: rand(1.0..5.0),
     release_date: Faker::Date.backward(days: 1000),
     created_at: Time.now,
@@ -59,6 +62,25 @@ albums = 10.times.map do
   # Link to 1-3 random genres
   genres.sample(2).each do |genre|
     AlbumGenreMapping.create!(album_id: album.id, genre_id: genre.id)
+  end
+
+  # Create external links for the album
+  [
+    { platform: 'spotify', base_url: 'https://open.spotify.com/album/' },
+    { platform: 'youtube', base_url: 'https://www.youtube.com/playlist?list=' },
+    { platform: 'apple_music', base_url: 'https://music.apple.com/album/' }
+  ].each do |link_data|
+    # 50% chance to have each platform link
+    if rand < 0.5
+      platform_id = SecureRandom.alphanumeric(22)
+      AlbumExternalLink.create!(
+        album: album,
+        platform: link_data[:platform],
+        url: link_data[:base_url] + platform_id,
+        created_at: Time.now,
+        updated_at: Time.now
+      )
+    end
   end
 
   album
@@ -107,7 +129,8 @@ users.each do |user|
     playlist = Playlist.create!(
       user_id: user.id,
       playlist_name: "#{Faker::Music.genre} Vibes",
-      category: ["Chill", "Workout", "Focus", "Party", "Mood"].sample,
+      bio: Faker::Lorem.paragraph(sentence_count: 2),
+      category: [ "Chill", "Workout", "Focus", "Party", "Mood" ].sample,
       created_at: Time.now
     )
 
@@ -121,6 +144,6 @@ users.each do |user|
   end
 end
 
-
 puts "✅ Seeded users, artists, albums, genres, songs, song-artist mappings, and reviews!"
 puts "✅ Also seeded playlists and playlist-song mappings!"
+puts "✅ Added external links for albums (Spotify, YouTube, Apple Music)!"
