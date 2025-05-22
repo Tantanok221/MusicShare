@@ -4,7 +4,7 @@ class PlaylistController < ApplicationController
     @playlist.user_id = current_user.id
 
     if @playlist.save
-      redirect_to list_path(@playlist.id)
+      redirect_to playlist_details_path(@playlist.id)
       puts "Playlist created successfully"
     else
       redirect_to root_path

@@ -1,86 +1,76 @@
 <div class="py-6 mt-4 w-full rounded-lg flex flex-row gap-3 outline outline-1 outline-border">
-  <div class="px-6 flex gap-2 flex-col">
-    <img src="<%= @album.album_image_url %>" class="h-56 w-56 rounded-xs"/>
-    <div class="flex flex-row justify-center items-center gap-1">
-      <%= phosphor_icon "youtube-logo", class: "h-7 w-7" %>
-      <%= phosphor_icon "spotify-logo", class: "h-7 w-7" %>
+    <div class="px-6 flex gap-2 flex-col">
+        <img src="<%= @album.album_image_url %>" class="h-56 w-56 rounded-xs" />
+        <div class="flex flex-row justify-center items-center gap-1">
+            <%= phosphor_icon "youtube-logo", class: "h-7 w-7" %>
+            <%= phosphor_icon "spotify-logo", class: "h-7 w-7" %>
+        </div>
+        <%= render "page/shared/add_to_list" %>
     </div>
-    <%= render "page/shared/add_to_list" %>
-  </div>
-  <div class="flex flex-col px-6 gap-2 ">
-    <div class="flex flex-col gap-1.5 py-1">
-      <p class="text-xl font-semibold"><%= @album.name %></p>
-      <div class="flex flex-row gap-2">
-        <% @album.genres.each do |genre| %>
-                    <span class="bg-muted-foreground text-white text-xs px-2 py-1 rounded">
-                      <%= genre.genre_name %>
-                    </span>
-        <% end %>
-      </div>
-    </div>
-    <p class="text-xs font-medium"><%= @album.artists.map(&:name).join(", ") %> - <%= @album.release_date.year %></p>
-    <p class="flex flex-row gap-1 items-center text-xs font-medium">
-      <%= phosphor_icon "star", class: "h-3.5 w-3.5" %><%= number_with_precision(@album.rating, precision: 2) %>
-    </p>
-    <p class="text-xs font-medium">ratings</p>
-    <p class="text-0.85 font-semibold">Songs</p>
-    <div class="flex flex-col gap-2">
-      <ol class="flex flex-col list-decimal list-outside text-[1rem] font-light">
-        <% @album.songs.each do |song| %>
-          <li>
-            <div class="flex flex-row gap-4 justify-between items-center">
-              <span><%= song.title %></span>
-              <div class="flex flex-row justify-end gap-1">
-                <%= phosphor_icon "plus", class: "h-3.5 w-3.5" %>
-                <%= phosphor_icon "heart", class: "h-3.5 w-3.5" %>
-              </div>
+    <div class="flex flex-col px-6 gap-2 ">
+        <div class="flex flex-col gap-1.5 py-1">
+            <p class="text-xl font-semibold"><%= @album.name %></p>
+            <div class="flex flex-row gap-2">
+                <% @album.genres.each do |genre| %>
+                <span class="bg-muted-foreground text-white text-xs px-2 py-1 rounded">
+                    <%= genre.genre_name %>
+                </span>
+                <% end %>
             </div>
-          </li>
-        <% end %>
-      </ol>
+        </div>
+        <p class="text-xs font-medium"><%= @album.artists.map(&:name).join(", ") %> - <%= @album.release_date.year %></p>
+        <p class="flex flex-row gap-1 items-center text-xs font-medium">
+            <%= phosphor_icon "star", class: "h-3.5 w-3.5" %><%= number_with_precision(@album.rating, precision: 2) %>
+        </p>
+        <p class="text-0.85 font-semibold">Songs</p>
+        <div class="flex flex-col gap-2">
+            <ol class="flex flex-col list-decimal list-outside text-[1rem] font-light">
+                <% @album.songs.each do |song| %>
+                <li>
+                    <div class="flex flex-row gap-4 justify-between items-center">
+                        <span><%= song.title %></span>
+                        <div class="flex flex-row justify-end gap-1">
+                            <%= phosphor_icon "plus", class: "h-3.5 w-3.5" %>
+                            <%= phosphor_icon "heart", class: "h-3.5 w-3.5" %>
+                        </div>
+                    </div>
+                </li>
+                <% end %>
+            </ol>
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="flex flex-col px-6 py-4 mt-6 w-full rounded-lg gap-3 outline outline-1 outline-border mb-4">
-  <h1 class="text-lg font-semibold">Community Reviews</h1>
-  <div class="flex flex-col gap-3">
-    <h2>Your review</h2>
-    <div class="relative flex flex-col gap-1">
-      <input
-        type="text"
-        name="review"
-        id="review"
-        placeholder="Type your review here"
-        class="peer h-20 px-3 py-2 rounded-md outline outline-1 text-sm placeholder-transparent"
-        />
-      <label
-        for="review"
-        class="absolute left-3 top-2 text-sm text-gray-500 transition-all
+    <h1 class="text-lg font-semibold">Community Reviews</h1>
+    <div class="flex flex-col gap-3">
+        <h2>Your review</h2>
+        <div class="relative flex flex-col gap-1">
+            <input type="text" name="review" id="review" placeholder="Type your review here" class="peer h-20 px-3 py-2 rounded-md outline outline-1 text-sm placeholder-transparent" />
+            <label for="review" class="absolute left-3 top-2 text-sm text-gray-500 transition-all
            peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400
-           peer-focus:top-2 peer-focus:text-xs peer-focus:text-gray-500"
-      >
-        Type your review here
-      </label>
-    </div>
-    <div class="flex flex-col gap-1.5">
-      <p class="text-xs font-medium">Ali</p>
-      <div class="flex flex-row gap-1 items-center">
-        <%= phosphor_icon "star", class: "h-3 w-3" %>
-        <p class="text-xs font-medium">3.5</p>
-      </div>
-      <div class="flex flex-col gap-1">
-        <p class="text-xs font-semibold">Comments</p>
-        <p class="text-[0.7rem] font-normal">What could I even say about ‘Rock Around the Clock’? It’s forever cemented as
-          rock-and-roll ground zero, even if it rather plainly is not. What people don’t quite understand is that
-          perception, in these matters, is all that matters. Sure, stylistically, it’s not the first ‘rock and roll’
-          record. But it was the first record to be considered ‘rock and roll’ … so that’s that! My personal suggestion
-          for the ‘first rock musician’ is, at earliest, Big Boy Crudup; and, at the latest, Howlin’ Wolf. This is
-          pretty much just reasonably upbeat jump-blues with no keys. The flip is whatever.</p>
-      </div>
-    </div>
+           peer-focus:top-2 peer-focus:text-xs peer-focus:text-gray-500">
+                Type your review here
+            </label>
+        </div>
+        <div class="flex flex-col gap-1.5">
+            <p class="text-xs font-medium">Ali</p>
+            <div class="flex flex-row gap-1 items-center">
+                <%= phosphor_icon "star", class: "h-3 w-3" %>
+                <p class="text-xs font-medium">3.5</p>
+            </div>
+            <div class="flex flex-col gap-1">
+                <p class="text-xs font-semibold">Comments</p>
+                <p class="text-[0.7rem] font-normal">What could I even say about ‘Rock Around the Clock’? It’s forever cemented as
+                    rock-and-roll ground zero, even if it rather plainly is not. What people don’t quite understand is that
+                    perception, in these matters, is all that matters. Sure, stylistically, it’s not the first ‘rock and roll’
+                    record. But it was the first record to be considered ‘rock and roll’ … so that’s that! My personal suggestion
+                    for the ‘first rock musician’ is, at earliest, Big Boy Crudup; and, at the latest, Howlin’ Wolf. This is
+                    pretty much just reasonably upbeat jump-blues with no keys. The flip is whatever.</p>
+            </div>
+        </div>
 
-  </div>
+    </div>
 </div>
-<%#= @album.inspect %>
+<%= @album.inspect %>
 <%#= @album.songs.inspect %>

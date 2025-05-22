@@ -11,7 +11,7 @@
             <div class="w-20 h-24 bg-neutral-300 rounded"></div>
             <% end %>
         </div>
-        <%= link_to list_path(playlist.id), class: "flex justify-center items-center gap-2 self-stretch bg-secondary font-medium text-sm rounded py-2" do %>
+        <%= link_to playlist_details_path(playlist.id), class: "flex justify-center items-center gap-2 self-stretch bg-secondary font-medium text-sm rounded py-2" do %>
         <%= phosphor_icon "book-open", class: "h-4.5 w-4.5" %>
         <p>View List</p>
         <% end %>
