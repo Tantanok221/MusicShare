@@ -1,6 +1,6 @@
 class PlaylistAlbumsController < ApplicationController
   def create
-    @album = Album.find(params[:id])
+    @album = Album.find(params[:album_id])
 
     # Loop through each selected playlist ID
     params[:playlist_ids]&.each do |playlist_id|
