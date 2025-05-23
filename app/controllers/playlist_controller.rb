@@ -31,6 +31,12 @@ class PlaylistController < ApplicationController
       playlist.songs << @song unless playlist.songs.include?(@song)
     end
   end
+  def remove_song_from_playlist
+    @song = Song.find(params[:song_id])
+    @playlist = Playlist.find(params[:playlist_id])
+    @playlist.songs.delete(@song)
+    redirect_to playlist_details_path(@playlist.id)
+  end
   def playlist_params
     params.permit(:playlist_name)
   end

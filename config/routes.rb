@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post "create_playlist", to: "playlist#create", as: :create_playlist
   post "add_album_to_playlist", to: "playlist#add_album_to_playlist", as: :add_album_to_playlist
   post "add_song_to_playlist", to: "playlist#add_song_to_playlist", as: :add_song_to_playlist
-
+  post "remove_song_from_playlist", to: "playlist#remove_song_from_playlist", as: :remove_song_from_playlist
   # Admin routes
   get "admin", to: "admin#home", as: :admin_home
 
