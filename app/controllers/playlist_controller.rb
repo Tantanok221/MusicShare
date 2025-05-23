@@ -23,13 +23,14 @@ class PlaylistController < ApplicationController
 
     redirect_back(fallback_location: root_path, notice: "Album added to playlists")
   end
-
   def add_song_to_playlist
-    @playlist = Playlist.find(params[:id])
     @song = Song.find(params[:song_id])
-    @playlist.songs << @song
-  end
 
+    params[:playlist_ids]&.each do |playlist_id|
+      playlist = current_user.playlists.find(playlist_id)
+      playlist.songs << @song unless playlist.songs.include?(@song)
+    end
+  end
   def playlist_params
     params.permit(:playlist_name)
   end

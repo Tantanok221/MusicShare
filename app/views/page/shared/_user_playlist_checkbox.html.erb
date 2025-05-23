@@ -1,0 +1,18 @@
+<div class="space-y-3">
+    <div class="space-y-2 max-h-60 overflow-y-auto">
+        <% if current_user.present? %>
+        <% current_user.playlists.each do |playlist| %>
+        <div class="flex items-center space-x-2 py-2">
+            <%= form.check_box "playlist_ids[]", 
+                                { class: "h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" }, 
+                                playlist.id, 
+                                nil 
+                %>
+            <%= form.label "playlist_ids_#{playlist.id}", playlist.playlist_name, class: "text-sm font-normal" %>
+        </div>
+        <% end %>
+        <% else %>
+        <p class="text-sm text-gray-500 text-center py-2">No playlists found. Create a new playlist first.</p>
+        <% end %>
+    </div>
+</div>
