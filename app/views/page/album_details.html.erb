@@ -71,14 +71,34 @@
             <h3 class="text-lg font-semibold">Community Reviews</h3>
 
             <%# Review Form %>
-            <div class="space-y-4">
+            <% if current_user.present? %>
+            <%= form_with model: Review.new, local:true, class: "space-y-4" do |form| %>
+            <%= form.hidden_field :album_id, value: @album.id %>
+
+            <div x-data="{ rating: 0, hoverRating: 0 }" class="flex flex-row w-full justify-between">
+                <%= form.hidden_field :rating, 'x-model': 'rating' %>
                 <h4 class="text-sm font-medium">Your review</h4>
-                <div class="space-y-2">
-                    <div class="relative">
-                        <textarea id="review" class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Type your review here"></textarea>
-                    </div>
+                <div class="flex items-center gap-1">
+                    <% 5.times do |i| %>
+                    <button type="button" x-on:click="rating = <%= i + 1 %>" x-on:mouseenter="hoverRating = <%= i + 1 %>" x-on:mouseleave="hoverRating = rating" class="transition-colors hover:text-yellow-400">
+                        <template x-if="(hoverRating || rating) >= <%= i + 1 %>">
+                            <%= phosphor_icon "star", style: :fill, class: "h-6 w-6 text-yellow-400"%>
+                        </template>
+                        <template x-if="(hoverRating || rating) < <%= i + 1 %>">
+                            <%= phosphor_icon "star", class: "h-6 w-6 text-gray-300" %>
+                        </template>
+                    </button>
+                    <% end %>
                 </div>
             </div>
+            <div class="space-y-2">
+                <div class="relative">
+                    <%= form.text_area :comment, class: "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", placeholder: "Type your review here" %>
+                </div>
+            </div>
+            <%= form.submit "Submit Review", class: "py-3 px-6 rounded-lg text-base font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors" %>
+            <% end %>
+            <% end %>
 
             <%# Existing Reviews %>
             <% @album.reviews.each do |review| %>
@@ -88,7 +108,7 @@
                         <div class="flex items-center justify-between">
                             <span class="text-sm font-medium"><%= review.user.username %></span>
                             <div class="flex items-center gap-1">
-                                <%= phosphor_icon "star", class: "h-4 w-4 text-yellow-400" %>
+                                <%= phosphor_icon "star", style: :fill, class: "h-4 w-4 text-yellow-400" %>
                                 <span class="text-sm"><%= number_with_precision(review.rating, precision: 2) %></span>
                             </div>
                         </div>
