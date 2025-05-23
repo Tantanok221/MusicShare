@@ -2,12 +2,11 @@
 
 class ModalComponent < ViewComponent::Base
   renders_one :trigger
-  renders_one :header
   renders_one :body
-  renders_one :footer
 
-  def initialize(id:, size: :medium)
+  def initialize(id:, title:, size: :medium)
     @id = id
+    @title = title
     @size = size
   end
 
