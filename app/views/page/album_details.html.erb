@@ -100,28 +100,7 @@
             <% end %>
             <% end %>
 
-            <%# Existing Reviews %>
-            <% @album.reviews.each do |review| %>
-            <div class="space-y-4">
-                <div class="rounded-lg border p-4">
-                    <div class="space-y-2">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm font-medium"><%= review.user.username %></span>
-                            <div class="flex items-center gap-1">
-                                <%= phosphor_icon "star", style: :fill, class: "h-4 w-4 text-yellow-400" %>
-                                <span class="text-sm"><%= number_with_precision(review.rating, precision: 2) %></span>
-                            </div>
-                        </div>
-                        <div class="space-y-1">
-                            <h5 class="text-sm font-medium">Comments</h5>
-                            <p class="text-sm text-muted-foreground">
-                                <%= review.comment %>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <% end %>
+            <%= render ReviewlistComponent.new(reviews: @album.reviews) %>
         </div>
     </div>
 </div>
