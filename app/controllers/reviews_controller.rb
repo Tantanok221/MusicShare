@@ -2,7 +2,6 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @review.user = current_user
-    @review.album = Album.find(review_params[:album_id])
     if @review.save
       redirect_to album_details_path(@review.album)
     else
