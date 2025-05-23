@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations" }
   get "page/index"
   root "page#index"
-  get "search", to: "page#search", as: :search
+  get "album", to: "page#search", as: :search
   get "playlist/:id", to: "page#playlist_details", as: :playlist_details
   get "playlist", to: "page#playlist_index", as: :list_index
   get "album/:id", to: "page#album_details", as: :album_details
