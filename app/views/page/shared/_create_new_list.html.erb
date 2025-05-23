@@ -16,7 +16,7 @@
                 <%= phosphor_icon "x", class: "h-5 w-5" %>
             </button>
         </div>
-        <%= form_with url: create_playlist_path, method: :post, class: "space-y-4" do |form| %>
+        <%= form_with url: playlists_path, method: :post, class: "space-y-4" do |form| %>
         <%= form.text_field :playlist_name, placeholder: "Playlist Name...", class: "w-full px-3 py-1.5 border rounded-md text-sm font-normal" %>
 
         <button class="flex justify-center items-center w-full px-4 py-2 text-sm rounded-md bg-primary text-primary-foreground gap-1" @click="showModal = false">

@@ -8,13 +8,9 @@
 <% end %>
 
 <%= modal.with_body do %>
-<%= form_with url: remove_song_from_playlist_path, method: :post, class: "space-y-4" do |form| %>
-<%= form.hidden_field :song_id, value: @song.id %>
-<%= form.hidden_field :playlist_id, value: @playlist.id %>
-<button type="submit" class="flex justify-center items-center w-full px-4 py-2 text-sm rounded-md bg-primary text-primary-foreground gap-1">
-    <%= phosphor_icon "trash", class: "h-3.5 w-3.5" %>
-    Yes
-</button>
+<%= button_to playlist_song_path(@playlist.id, @song.id), method: :delete, class: "flex justify-center items-center w-full px-4 py-2 text-sm rounded-md bg-primary text-primary-foreground gap-1" do %>
+<%= phosphor_icon "trash", class: "h-3.5 w-3.5" %>
+Yes
 <% end %>
 <% end %>
 <% end %>

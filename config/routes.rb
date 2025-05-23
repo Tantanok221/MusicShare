@@ -9,12 +9,16 @@ Rails.application.routes.draw do
   get "album/:id", to: "page#album_details", as: :album_details
   get "profile/:username", to: "page#profile", as: :profile
   # Playlist routes
-  post "create_playlist", to: "playlist#create", as: :create_playlist
-  post "add_album_to_playlist", to: "playlist#add_album_to_playlist", as: :add_album_to_playlist
-  post "add_song_to_playlist", to: "playlist#add_song_to_playlist", as: :add_song_to_playlist
-  post "remove_song_from_playlist", to: "playlist#remove_song_from_playlist", as: :remove_song_from_playlist
+  post "add_album_to_playlist", to: "playlists#add_album", as: :add_album_to_playlist
+  post "add_song_to_playlist", to: "playlists#add_song", as: :add_song_to_playlist
   # Admin routes
   get "admin", to: "admin#home", as: :admin_home
+
+
+  resources :playlists, only: [ :create, :destroy ] do
+    resources :songs, only: [ :create, :destroy ], controller: "playlist_songs"
+    resources :albums, only: [ :create ], controller: "playlist_albums"
+  end
 
   resources :reviews, only: [ :create ]
 
