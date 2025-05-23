@@ -18,7 +18,23 @@ class PlaylistsController < ApplicationController
     redirect_to root_path
   end
 
+  def edit
+    @playlist = Playlist.find(params[:id])
+  end
+
+  def update
+    @playlist = Playlist.find(params[:id])
+    puts playlist_params
+    if @playlist.update(playlist_params)
+      redirect_to playlist_details_path(@playlist.id), notice: "Playlist updated successfully."
+    else
+      render :edit
+    end
+  end
+
+  private
+
   def playlist_params
-    params.permit(:playlist_name)
+    params.require(:playlist).permit(:playlist_name, :bio)
   end
 end

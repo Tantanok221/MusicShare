@@ -12,12 +12,15 @@
         </div>
 
         <div class="prose prose-sm text-black max-w-none">
-            <p>The first installment in my massive progressive rock listening list, which hopes to provide an outline of
-                what constitutes a "comprehensive" prog rock collection. This particular list covers "classic era" Progressive Rock,
-                and is restricted to bands who released their most significant work during the prog rock heyday of the late-60's
-                through the late-70's. For prog rock artists who didn't begin releasing albums after that time, see my
-                accompanying Modern Progressive Rock. I've also omitted most artists who are more commonly associated with the
-                Krautrock movement, the jazz rock scene, or with the avant-prog/Rock In Opposition movements.</p>
+            <div class="flex items-start justify-between">
+                <div class="flex-1">
+                    <p><%= @playlist.bio %></p>
+                </div>
+                <%= link_to edit_playlist_path(@playlist.id), class: "inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium transition-colors rounded-md hover:bg-gray-100 ml-4" do %>
+                <%= phosphor_icon "pencil", class: "h-4 w-4" %>
+                <span>Edit</span>
+                <% end %>
+            </div>
         </div>
     </div>
 

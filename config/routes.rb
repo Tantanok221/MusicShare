@@ -1,4 +1,3 @@
-
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations" }
   get "page/index"
@@ -15,7 +14,7 @@ Rails.application.routes.draw do
   get "admin", to: "admin#home", as: :admin_home
 
 
-  resources :playlists, only: [ :create, :destroy ] do
+  resources :playlists, only: [ :create, :destroy, :edit, :update ] do
     resources :songs, only: [ :destroy ], controller: "playlist_songs"
     # resources :albums, only: [ :create ], controller: "playlist_albums"
   end
