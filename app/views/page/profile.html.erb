@@ -13,3 +13,6 @@
 <h3 class="flex flex-row justify-between text-black text-2xl font-semibold py-6">
     <%= @user.username %> Reviews
 </h3>
+<div class="flex flex-col gap-4">
+    <%= render ReviewlistComponent.new(reviews: @user.reviews) %>
+</div>

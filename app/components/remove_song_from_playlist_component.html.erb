@@ -1,0 +1,16 @@
+<%= render(ModalComponent.new(id: "remove-song-from-playlist-modal-#{@song.id}", size: :small, title: "Are you sure?")) do |modal| %>
+
+<%= modal.with_trigger do %>
+<button class="inline-flex items-center justify-center gap-2 px-3 py-1.5 text-sm font-medium transition-colors rounded-md hover:bg-red-100 text-red-600 hover:text-red-600">
+    <%= phosphor_icon "trash", class: "h-4 w-4" %>
+    <span>Remove</span>
+</button>
+<% end %>
+
+<%= modal.with_body do %>
+<%= button_to playlist_song_path(@playlist.id, @song.id), method: :delete, class: "flex justify-center items-center w-full px-4 py-2 text-sm rounded-md bg-primary text-primary-foreground gap-1" do %>
+<%= phosphor_icon "trash", class: "h-3.5 w-3.5" %>
+Yes
+<% end %>
+<% end %>
+<% end %>

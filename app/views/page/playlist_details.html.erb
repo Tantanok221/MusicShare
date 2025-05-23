@@ -15,5 +15,5 @@
         </div>
     </div>
 
-    <%= render SongListComponent.new(@playlist.songs) %>
+    <%= render SongListComponent.new(songs: @playlist.songs, playlist: @playlist) %>
 </div>

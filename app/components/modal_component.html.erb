@@ -1,0 +1,35 @@
+<%# Modal Container %>
+<div x-data="{ open: false }" @keydown.escape.window="open = false" @modal-open.window="if ($event.detail.id === '<%= @id %>') open = true" @modal-close.window="if ($event.detail.id === '<%= @id %>') open = false">
+
+    <%# Trigger slot %>
+    <% if trigger? %>
+    <div @click="open = true">
+        <%= trigger %>
+    </div>
+    <% end %>
+
+    <%# Modal Backdrop %>
+    <div x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm" @click="open = false">
+    </div>
+
+    <%# Modal Dialog %>
+    <div x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="fixed z-50 top-1/2 left-1/2 w-[90%] <%= modal_max_width_class %> -translate-x-1/2 -translate-y-1/2" @click.stop>
+
+        <div class="bg-white rounded-xl shadow-xl divide-y">
+            <%# Standard Header %>
+            <div class="p-6">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-semibold"><%= @title %></h2>
+                    <button @click="open = false" class="text-gray-500 hover:text-gray-700 transition-colors">
+                        <%= phosphor_icon "x", class: "h-5 w-5" %>
+                    </button>
+                </div>
+            </div>
+
+            <%# Body slot %>
+            <div class="p-6">
+                <%= body %>
+            </div>
+        </div>
+    </div>
+</div>
