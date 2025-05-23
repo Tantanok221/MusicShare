@@ -1,7 +1,5 @@
 class ReviewsController < ApplicationController
   def create
-    puts "Creating review"
-    puts review_params.inspect
     @review = Review.new(review_params)
     @review.user = current_user
     @review.album = Album.find(review_params[:album_id])
