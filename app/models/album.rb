@@ -5,7 +5,7 @@ class Album < ApplicationRecord
   has_many :album_external_links, dependent: :destroy
   has_many :album_genre_mappings, dependent: :destroy
   has_many :genres, through: :album_genre_mappings
-
+  has_many :reviews, dependent: :destroy
   def self.search_by(name, search_col: "albums.name")
     return all if name.blank?
 
