@@ -1,17 +1,66 @@
-<div class="space-y-6 max-w-6xl mx-auto">
-    <div class="space-y-4">
-        <div class="space-y-2">
-            <div class="flex items-center justify-between">
-                <h1 class="text-3xl font-bold tracking-tight"><%= @playlist.playlist_name %></h1>
-                <%= button_to playlist_path(@playlist.id), method: :delete, class: "inline-flex items-center justify-center gap-2 px-3 py-1.5 text-sm font-medium transition-colors rounded-md hover:bg-red-100 text-red-600 hover:text-red-600", data: { confirm: "Are you sure you want to delete this playlist?" } do %>
-                <%= phosphor_icon "trash", class: "h-4 w-4" %>
-                <span>Delete Playlist</span>
+<h2 class="text-black text-2xl font-semibold">
+    <%= @user.username %>
+</h2>
+
+<div class="text-black text-sm"> <%= @user.bio %> </div>
+
+<h3 class="flex flex-row justify-between text-black text-2xl font-semibold py-6">
+    <%= @user.username %> Playlists
+</h3>
+<%= render UserListComponent.new(current_user: @user) %>
+
+
+<h3 class="flex flex-row justify-between text-black text-2xl font-semibold py-6">
+    <%= @user.username %> Reviews
+</h3>
+<div class="flex flex-col gap-4">
+    <% if @reviews.any? %>
+    <% @reviews.each do |review| %>
+    <div class="rounded-lg border bg-card text-card-foreground shadow p-4">
+        <div class="flex gap-4">
+            <!-- Album Cover -->
+            <div class="flex-shrink-0">
+                <%= link_to album_details_path(review.album.id) do %>
+                <img src="<%= review.album.album_image_url %>" alt="<%= review.album.name %>" class="h-20 w-20 object-cover rounded-md" />
                 <% end %>
             </div>
-            <p class="text-sm text-muted-foreground leading-relaxed"><%= @playlist.songs.count %> songs</p>
-        </div>
 
-        <div class="prose prose-sm text-black max-w-none">
-            <p><%= @playlist.bio %></p>
+            <!-- Review Content -->
+            <div class="flex-1 space-y-2">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <%= link_to album_details_path(review.album.id), class: "text-lg font-medium hover:underline" do %>
+                        <%= review.album.name %>
+                        <% end %>
+                        <p class="text-sm text-muted-foreground">
+                            by <%= review.album.artists.map(&:name).join(", ") %>
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <%= phosphor_icon "star", style: :fill, class: "h-4 w-4 text-yellow-400" %>
+                        <span class="text-sm font-medium"><%= number_with_precision(review.rating, precision: 1) %></span>
+                    </div>
+                </div>
+
+                <% if review.comment.present? %>
+                <div class="space-y-1">
+                    <h5 class="text-sm font-medium">Comment</h5>
+                    <p class="text-sm text-muted-foreground">
+                        <%= review.comment %>
+                    </p>
+                </div>
+                <% end %>
+
+                <div class="text-xs text-muted-foreground">
+                    Reviewed on <%= review.created_at.strftime("%B %d, %Y") %>
+                </div>
+            </div>
         </div>
     </div>
+    <% end %>
+    <% else %>
+    <div class="text-center py-8 text-muted-foreground">
+        <p>No reviews yet</p>
+    </div>
+    <% end %>
+</div>

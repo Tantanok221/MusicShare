@@ -19,6 +19,7 @@ class PageController < ApplicationController
 
   def profile
     @user = User.find_by(username: params[:username])
+    @reviews = @user.reviews.includes(:album).order(created_at: :desc)
   end
 
   def album_details
