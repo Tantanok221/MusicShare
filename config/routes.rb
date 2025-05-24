@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     # resources :albums, only: [ :create ], controller: "playlist_albums"
   end
 
+  resources :users, only: [ :edit, :update ]
+
   resources :reviews, only: [ :create ]
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
