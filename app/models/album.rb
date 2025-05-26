@@ -7,6 +7,12 @@ class Album < ApplicationRecord
   has_many :genres, through: :album_genre_mappings
   has_many :reviews, dependent: :destroy
 
+
+  accepts_nested_attributes_for :album_external_links,
+                                allow_destroy: true,
+                                reject_if: proc { |attributes| attributes["url"].blank? }
+  #
+
   def self.search_by(name, search_col: "albums.name")
     return all if name.blank?
 

@@ -1,6 +1,7 @@
 class ArtistsController < ApplicationController
+  before_action :set_artist, only: [ :update, :destroy, :edit ]
+
   def update
-    @artist = Artist.find(params[:id])
     if @artist.update(artist_params)
       redirect_to admin_artist_path(@artist.id), notice: "Artist updated successfully"
     else
@@ -10,10 +11,19 @@ class ArtistsController < ApplicationController
 
 
   def edit
-    @artist = Artist.find(params[:id])
   end
 
   def artist_params
     params.require(:artist).permit(:name, :bio, :profile_image_url)
+  end
+
+  def destroy
+    @artist.destroy
+    redirect_to admin_home_path, notice: "Artist deleted successfully"
+  end
+
+  private
+  def set_artist
+    @artist = Artist.find(params[:id])
   end
 end

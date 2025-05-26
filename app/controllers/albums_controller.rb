@@ -3,6 +3,13 @@ class AlbumsController < ApplicationController
   before_action :set_album, only: [ :edit, :update, :destroy ]
 
   def edit
+    platforms = [ "spotify", "apple", "youtube" ]
+
+  platforms.each do |platform|
+    unless @album.album_external_links.any? { |link| link.platform == platform }
+      @album.album_external_links.build(platform: platform)
+    end
+  end
   end
 
   def update
@@ -25,7 +32,9 @@ class AlbumsController < ApplicationController
     @album = Album.find(params[:id])
   end
 
+
   def album_params
-    params.require(:album).permit(:name, :album_image_url, :rating)
+    params.require(:album).permit(:name, :album_image_url, :rating,
+    album_external_links_attributes: [ :album_id, :platform, :url, :_destroy ])
   end
 end
