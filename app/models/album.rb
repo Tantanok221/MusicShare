@@ -1,7 +1,7 @@
 class Album < ApplicationRecord
   has_many :songs, dependent: :destroy
   has_many :album_artist_mappings, dependent: :destroy
-  has_many :artists, through: :album_artist_mappings
+  has_many :artists, through: :album_artist_mappings, dependent: :destroy
   has_many :album_external_links, dependent: :destroy
   has_many :album_genre_mappings, dependent: :destroy
   has_many :genres, through: :album_genre_mappings

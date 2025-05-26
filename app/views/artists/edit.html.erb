@@ -1,0 +1,17 @@
+<div class="space-y-6 max-w-6xl mx-auto">
+    <div class="space-y-4">
+        <div class="flex items-center justify-between">
+            <h1 class="text-3xl font-bold tracking-tight">Edit Artist</h1>
+        </div>
+
+        <%= form_with model: @artist, url: artist_path(@artist.id), method: :patch, class: "space-y-4" do |form| %>
+        <div class="space-y-2">
+            <%= form.label :name, "Artist Name", class: "block text-sm font-medium" %>
+            <%= form.text_field :name, class: "w-full px-3 py-2 border rounded-md text-sm", placeholder: "Artist Name" %>
+        </div>
+
+        <div class="flex gap-2">
+            <%= form.submit "Update Song", class: "flex justify-center items-center px-4 py-2 text-sm rounded-md bg-primary text-primary-foreground" %>
+            <%= link_to "Cancel", request.referer, class: "flex justify-center items-center px-4 py-2 text-sm rounded-md border hover:bg-gray-50" %>
+        </div>
+        <% end %>

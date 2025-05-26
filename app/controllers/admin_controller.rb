@@ -6,4 +6,8 @@ class AdminController < ApplicationController
       @artists = Artist.all
     end
   end
+
+  def artist
+    @artist = Artist.find(params[:id])
+  end
 end

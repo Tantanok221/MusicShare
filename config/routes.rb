@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post "add_song_to_playlist", to: "playlist_songs#create", as: :add_song_to_playlist
   # Admin routes
   get "admin", to: "admin#home", as: :admin_home
-
+  get "admin/artist/:id", to: "admin#artist", as: :admin_artist
 
   resources :playlists, only: [ :create, :destroy, :edit, :update ] do
     resources :songs, only: [ :destroy ], controller: "playlist_songs"
@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [ :edit, :update ]
+
+  resources :albums, only: [ :edit, :update, :destroy ]
+  resources :songs, only: [ :edit, :update, :destroy ]
+  resources :artists, only: [ :update, :edit ]
 
   resources :reviews, only: [ :create ]
 
