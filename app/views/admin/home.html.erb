@@ -13,10 +13,10 @@
         </div>
         <%= submit_tag "Search", class: "py-3 px-6 rounded-lg text-base font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors" %>
         <% end %>
-        <button class="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground border border-input bg-background ">
-            <%= phosphor_icon "plus", class: "h-4 w-4" %>
-            Add Artist
-        </button>
+        <%= link_to new_artist_path, class: "inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground border border-input bg-background " do %>
+        <%= phosphor_icon "plus", class: "h-4 w-4" %>
+        Add Artist
+        <% end %>
     </div>
     <div class="divide-y divide-border">
         <% if @artists.present? %>

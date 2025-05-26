@@ -5,4 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :playlists, dependent: :destroy
   has_many :reviews, dependent: :destroy
+
+  def admin?
+    role == "admin"
+  end
 end

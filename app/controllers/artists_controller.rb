@@ -1,6 +1,18 @@
 class ArtistsController < ApplicationController
   before_action :set_artist, only: [ :update, :destroy, :edit ]
+  before_action :ensure_admin
 
+
+  def create
+    @artist = Artist.new(artist_params)
+    if @artist.save
+      redirect_to admin_artist_path(@artist.id), notice: "Artist created successfully"
+    end
+  end
+
+  def new
+    @artist = Artist.new
+  end
   def update
     if @artist.update(artist_params)
       redirect_to admin_artist_path(@artist.id), notice: "Artist updated successfully"
