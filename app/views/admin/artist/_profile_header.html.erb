@@ -1,0 +1,18 @@
+        <!-- Profile Header -->
+        <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6 mb-8">
+            <div class="flex items-start justify-between">
+                <div class="flex-1">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">
+                        <%= @artist.name %>
+                    </h1>
+                </div>
+                <%= link_to edit_artist_path(@artist.id), class: "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-50 border border-gray-200 rounded-md hover:bg-gray-100 transition-colors ml-6" do %>
+                <%= phosphor_icon "pencil", class: "h-4 w-4" %>
+                <span>Edit Artist</span>
+                <% end %>
+                <%= button_to artist_path(@artist.id), method: :delete, class: "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium  text-red-500 border  cursor-pointer rounded-md hover:bg-gray-100 transition-colors ml-6" do %>
+                <%= phosphor_icon "trash", class: "h-4 w-4" %>
+                <span>Delete Artist</span>
+                <% end %>
+            </div>
+        </div>
