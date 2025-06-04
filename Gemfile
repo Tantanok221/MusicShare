@@ -66,7 +66,6 @@ end
 gem "view_component"
 
 gem "devise", "~> 4.9"
-gem 'libsql_activerecord'
 
 gem "tailwindcss-ruby", "~> 4.1"
 
