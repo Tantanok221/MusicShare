@@ -8,7 +8,6 @@ class PlaylistSongsController < ApplicationController
     refresh_or_redirect_to album_details_path(@song.album)
   end
   def destroy
-
     @song = Song.find(params[:id])
     @playlist = Playlist.find(params[:playlist_id])
     @playlist.songs.delete(@song)
@@ -16,5 +15,4 @@ class PlaylistSongsController < ApplicationController
   end
 
   private
-
 end
