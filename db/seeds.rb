@@ -154,4 +154,4 @@ User.create!(
 
 puts "✅ Seeded users, artists, albums, genres, songs, song-artist mappings, and reviews!"
 puts "✅ Also seeded playlists and playlist-song mappings!"
-putsa "✅ Added external links for albums (Spotify, YouTube, Apple Music)!"
+puts "✅ Added external links for albums (Spotify, YouTube, Apple Music)!"
