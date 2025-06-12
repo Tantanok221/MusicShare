@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: "testuser1"
+  email: "test1@example.com"
+  encrypted_password: "$2a$12$3Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9eO"  # bcrypt hash for "password"
+  role: "user"
+  bio: "Test user 1"
+
+two:
+  username: "testuser2" 
+  email: "test2@example.com"
+  encrypted_password: "$2a$12$3Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9eO"  # bcrypt hash for "password"
+  role: "user"
+  bio: "Test user 2"
+
+admin:
+  username: "adminuser" 
+  email: "admin@example.com"
+  encrypted_password: "$2a$12$3Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9eO"  # bcrypt hash for "password"
+  role: "admin"
+  bio: "Test user 2"
+
