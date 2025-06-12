@@ -144,6 +144,14 @@ users.each do |user|
   end
 end
 
+User.create!(
+  username: "admin",
+  email: "admin@admin.com",
+  password: Rails.application.credentials.admin_password,
+  role: "admin",
+  created_at: Time.now,
+)
+
 puts "✅ Seeded users, artists, albums, genres, songs, song-artist mappings, and reviews!"
 puts "✅ Also seeded playlists and playlist-song mappings!"
-puts "✅ Added external links for albums (Spotify, YouTube, Apple Music)!"
+putsa "✅ Added external links for albums (Spotify, YouTube, Apple Music)!"
