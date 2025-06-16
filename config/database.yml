@@ -5,13 +5,22 @@
 #   gem "sqlite3"
 #
 default: &default
+  adapter: postgresql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+sqlite: &sqlite
   adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 development:
   <<: *default
-  database: storage/development.sqlite3
+  username: postgres
+  password: admin
+  port: 5432
+  host: localhost
+  database: musicshare_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -26,16 +35,17 @@ test:
 production:
   primary:
     <<: *default
-    database: storage/production.sqlite3
+    url: <%= ENV["DATABASE_URL"] %>
+    database: <%= ENV["PG_DATABASE"] %>
   cache:
-    <<: *default
+    <<: *sqlite
     database: storage/production_cache.sqlite3
     migrations_paths: db/cache_migrate
   queue:
-    <<: *default
+    <<: *sqlite
     database: storage/production_queue.sqlite3
     migrations_paths: db/queue_migrate
   cable:
-    <<: *default
+    <<: *sqlite
     database: storage/production_cable.sqlite3
     migrations_paths: db/cable_migrate

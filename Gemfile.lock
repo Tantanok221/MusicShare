@@ -215,6 +215,7 @@ GEM
     parser (3.3.8.0)
       ast (~> 2.4.1)
       racc
+    pg (1.5.9)
     phosphor_icons (0.3.0)
       actionview
       ox (~> 2.14)
@@ -424,6 +425,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  pg (~> 1.5)
   phosphor_icons (~> 0.3.0)
   propshaft
   puma (>= 5.0)
