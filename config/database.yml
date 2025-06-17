@@ -36,7 +36,7 @@ production:
   primary:
     <<: *default
     url: <%= ENV["DATABASE_URL"] %>
-    database: <%= ENV["PG_DATABASE"] %>
+#    database: <%#= ENV["PG_DATABASE"] %>
   cache:
     <<: *sqlite
     database: storage/production_cache.sqlite3
