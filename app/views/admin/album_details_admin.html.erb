@@ -1,0 +1,12 @@
+<div class="flex flex-col gap-2 py-4 px-2">
+  <div class="flex flex-row gap-2 items-center">
+    <img src="<%= @artist.profile_image_url %>" class="rounded-full h-15 w-15 border-1 border-gray-300" alt="<%= @artist.name %>" />
+    <h1 class="text-2xl font-semibold"><%= @artist.name %></h1>
+  </div>
+  <div class="flex flex-col gap-6">
+    <p class="text-base font-normal pb-2"><%= @artist.bio %></p>
+  </div>
+  <%= render 'admin/artist/album_details_admin', albums: @albums %>
+</div>
+
+

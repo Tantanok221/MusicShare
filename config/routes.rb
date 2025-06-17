@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   # Admin routes
   get "admin", to: "admin#home", as: :admin_home
   get "admin/artist/:id", to: "admin#artist", as: :admin_artist
+  get "admin/album_details_admin/:id", to: "admin#album_details_admin", as: :album_details_admin
+
 
   resources :playlists, only: [ :create, :destroy, :edit, :update ] do
     resources :songs, only: [ :destroy ], controller: "playlist_songs"
