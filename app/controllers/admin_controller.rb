@@ -16,7 +16,6 @@ class AdminController < ApplicationController
 
   def album_details_admin
     @artist = Artist.find(params[:id])
-    @albums = Album.all
     @albums = Album.includes(:songs).all
   end
 end
