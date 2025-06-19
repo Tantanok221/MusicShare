@@ -9,12 +9,12 @@ class ButtonComponent < ViewComponent::Base
   end
 
   def classes
-    [base_classes, variant_classes[@variant]].join(" ")
+    [ base_classes, variant_classes[@variant] ].join(" ")
   end
 
   def html_attributes
     existing = @attr[:class]
-    merged_class = [classes, existing].compact.join(" ")
+    merged_class = [ classes, existing ].compact.join(" ")
     @attr.merge(class: merged_class)
   end
 
