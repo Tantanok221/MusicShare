@@ -6,11 +6,32 @@
         <div class="flex flex-col py-1 gap-1 text-xl font-medium items-stretch flex-1">
           <div class="flex flex-row justify-between">
             <h1 class="px-3"><%= album.name %></h1>
-            <button class="flex flex-row py-1 px-1 gap-1 rounded-lg border items-center justify-center text-sm font-medium">
-              <%= phosphor_icon "plus", class: "h-3.5 w-3.5" %>
-              Add new song
-            </button>
+            <div class="flex gap-2">
+              <%= link_to edit_album_path(album), class: "flex flex-row py-1 px-2 gap-1 rounded-lg border items-center justify-center text-sm font-medium hover:bg-gray-50" do %>
+                <%= phosphor_icon "pencil", class: "h-3.5 w-3.5" %>
+                Edit Album
+              <% end %>
+              <button class="flex flex-row py-1 px-1 gap-1 rounded-lg border items-center justify-center text-sm font-medium">
+                <%= phosphor_icon "plus", class: "h-3.5 w-3.5" %>
+                Add new song
+              </button>
+            </div>
           </div>
+          
+          <%# External Links Display %>
+          <% if streaming_links(album).any? %>
+            <div class="px-3 py-2">
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-medium text-gray-600">Listen on:</span>
+                <% streaming_links(album).each do |link| %>
+                  <% icon_data = platform_icon(link.platform) %>
+                  <%= link_to link.url, target: :_blank, title: icon_data[:title], class: "inline-flex items-center justify-center p-1.5 rounded-md hover:bg-gray-100 transition-colors" do %>
+                    <%= phosphor_icon icon_data[:icon], class: icon_data[:class] %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
           <% if album.songs.present? %>
             <div class="flex flex-col text-base w-full font-normal py-1 rounded-lg border bg-white shadow-sm">
               <% album.songs.each do |song| %>
