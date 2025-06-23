@@ -4,13 +4,13 @@ class AlbumsController < ApplicationController
   before_action :set_album, only: [ :edit, :update, :destroy ]
 
   def edit
-    platforms = [ "spotify", "apple", "youtube" ]
+    platforms = [ "Spotify", "Apple Music", "YouTube Music" ]
 
-  platforms.each do |platform|
-    unless @album.album_external_links.any? { |link| link.platform == platform }
-      @album.album_external_links.build(platform: platform)
+    platforms.each do |platform|
+      unless @album.album_external_links.any? { |link| link.platform == platform }
+        @album.album_external_links.build(platform: platform)
+      end
     end
-  end
   end
 
   def update

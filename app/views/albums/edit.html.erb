@@ -21,8 +21,15 @@
             <%= form.fields_for :album_external_links do |link_form| %>
             <div class="space-y-2">
                 <%= link_form.hidden_field :platform %>
-                <%= link_form.label :url, link_form.object.platform.humanize, class: "block text-sm font-medium" %>
-                <%= link_form.text_field :url, class: "w-full px-3 py-2 border rounded-md text-sm", placeholder: "Enter #{link_form.object.platform.humanize} URL" %>
+                <% platform_name = link_form.object.platform %>
+                <% placeholder_text = case platform_name
+                    when 'Spotify' then 'https://open.spotify.com/search/artist+album'
+                    when 'Apple Music' then 'https://music.apple.com/search?term=artist+album'
+                    when 'YouTube Music' then 'https://music.youtube.com/search?q=artist+album'
+                    else "Enter #{platform_name} URL"
+                    end %>
+                <%= link_form.label :url, platform_name, class: "block text-sm font-medium" %>
+                <%= link_form.text_field :url, class: "w-full px-3 py-2 border rounded-md text-sm", placeholder: placeholder_text %>
             </div>
             <% end %>
         </div>

@@ -40,3 +40,7 @@
 !/app/assets/builds/.keep
 
 /config/credentials/production.key
+
+## Ignore import scripts and services (one-time use)
+#/lib/tasks/music_import.rake
+#/app/services/lastfm_import_service.rb
