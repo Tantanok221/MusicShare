@@ -77,5 +77,5 @@ gem "phosphor_icons", "~> 0.3.0"
 
 gem "pg", "~> 1.5"
 
-# Load environment variables from .env file
+# Load environment variables from .env file (development/test only)
 gem "dotenv-rails", groups: [:development, :test]
