@@ -1,55 +1,61 @@
 <div class="rounded-lg border bg-white shadow-sm">
-  <% @albums.each do |album| %>
-    <div class="flex py-1 last:pb-0 border-b last:border-0">
-      <div class="flex w-full items-start px-4 py-3 gap-6">
-        <img src="<%= album.album_image_url %>" alt="<%= album.name %>" class="rounded-sm h-52 w-52"/>
-        <div class="flex flex-col py-1 gap-1 text-xl font-medium items-stretch flex-1">
-          <div class="flex flex-row justify-between">
-            <h1 class="px-3"><%= album.name %></h1>
-            <div class="flex gap-2">
-              <%= link_to edit_album_path(album), class: "flex flex-row py-1 px-2 gap-1 rounded-lg border items-center justify-center text-sm font-medium hover:bg-gray-50" do %>
-                <%= phosphor_icon "pencil", class: "h-3.5 w-3.5" %>
-                Edit Album
+  <div class="flex py-1 last:pb-0 border-b last:border-0">
+    <div class="flex w-full items-start px-4 py-3 gap-6">
+      <img src="<%= @album.album_image_url %>" alt="<%= @album.name %>" class="rounded-sm h-52 w-52"/>
+      <div class="flex flex-col py-1 gap-1 text-xl font-medium items-stretch flex-1">
+        <div class="flex flex-row justify-between">
+          <h1 class="px-3"><%= @album.name %></h1>
+          <div class="flex gap-2">
+            <%= link_to edit_album_path(@album), class: "flex flex-row py-1 px-2 gap-1 rounded-lg border items-center justify-center text-sm font-medium hover:bg-gray-50" do %>
+              <%= phosphor_icon "pencil", class: "h-3.5 w-3.5" %>
+              Edit Album
+            <% end %>
+            <%= render partial: "admin/artist/add_new_song_admin", locals: { album: @album } %>
+          </div>
+        </div>
+
+        <%# External Links Display %>
+        <% if streaming_links(@album).any? %>
+          <div class="px-3 py-2">
+            <div class="flex items-center gap-2">
+              <span class="text-sm font-medium text-gray-600">Listen on:</span>
+              <% streaming_links(@album).each do |link| %>
+                <% icon_data = platform_icon(link.platform) %>
+                <%= link_to link.url, target: :_blank, title: icon_data[:title], class: "inline-flex items-center justify-center p-1.5 rounded-md hover:bg-gray-100 transition-colors" do %>
+                  <%= phosphor_icon icon_data[:icon], class: icon_data[:class] %>
+                <% end %>
               <% end %>
-              <button class="flex flex-row py-1 px-1 gap-1 rounded-lg border items-center justify-center text-sm font-medium">
-                <%= phosphor_icon "plus", class: "h-3.5 w-3.5" %>
-                Add new song
-              </button>
             </div>
           </div>
-          
-          <%# External Links Display %>
-          <% if streaming_links(album).any? %>
-            <div class="px-3 py-2">
-              <div class="flex items-center gap-2">
-                <span class="text-sm font-medium text-gray-600">Listen on:</span>
-                <% streaming_links(album).each do |link| %>
-                  <% icon_data = platform_icon(link.platform) %>
-                  <%= link_to link.url, target: :_blank, title: icon_data[:title], class: "inline-flex items-center justify-center p-1.5 rounded-md hover:bg-gray-100 transition-colors" do %>
-                    <%= phosphor_icon icon_data[:icon], class: icon_data[:class] %>
+        <% end %>
+
+        <% if @album.songs.present? %>
+          <div class="flex flex-col text-base w-full font-normal py-1 rounded-lg border bg-white shadow-sm">
+            <% @album.songs.each do |song| %>
+              <div class="flex items-center justify-between py-1.5 px-2.5 last:pb-0 border-b last:border-0">
+                <%= song.title %>
+                <div class="flex items-center gap-2">
+                  <%= link_to edit_song_path(song), class: "inline-flex items-center justify-center p-1.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors" do %>
+                    <%= phosphor_icon "pencil", class: "h-4 w-4" %>
                   <% end %>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
-          <% if album.songs.present? %>
-            <div class="flex flex-col text-base w-full font-normal py-1 rounded-lg border bg-white shadow-sm">
-              <% album.songs.each do |song| %>
-                <div class="flex items-center justify-between py-1.5 px-2.5 last:pb-0 border-b last:border-0"><%= song.title %>
-                  <div class="flex items-center gap-2">
-                    <div class="inline-flex items-center justify-center p-1.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors" do %>
-                      <%= phosphor_icon "pencil", class: "h-4 w-4" %>
-                    </div>
-                    <button class="inline-flex items-center justify-center p-1.5 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors">
-                      <%= phosphor_icon "trash", class: "h-4 w-4" %>
-                    </button>
-                  </div>
+                  <%= link_to admin_song_path(song), method: :delete,
+                              data: {
+                                confirm: "Are you sure you want to delete this song?",
+                                turbo_method: :delete
+                              },
+                              class: "inline-flex items-center justify-center p-1.5 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors" do %>
+                    <%= phosphor_icon "trash", class: "h-4 w-4" %>
+                  <% end %>
                 </div>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="px-3 py-4 text-gray-500 text-center">
+            No songs in this album yet.
+          </div>
+        <% end %>
       </div>
     </div>
-  <% end %>
+  </div>
 </div>

@@ -7,12 +7,17 @@ Rails.application.routes.draw do
   get "playlist", to: "page#playlist_index", as: :list_index
   get "album/:id", to: "page#album_details", as: :album_details
   get "profile/:username", to: "page#profile", as: :profile
+
   # Playlist routes
   post "add_album_to_playlist", to: "playlist_albums#create", as: :add_album_to_playlist
   post "add_song_to_playlist", to: "playlist_songs#create", as: :add_song_to_playlist
+
   # Admin routes
   get "admin", to: "admin#home", as: :admin_home
   get "admin/artist/:id", to: "admin#artist", as: :admin_artist
+  get "admin/album_details_admin/:id", to: "admin#album_details_admin", as: :album_details_admin
+  post "admin/albums/:album_id/songs", to: "admin#create_song", as: :admin_album_songs
+  delete "admin/songs/:id", to: "admin#destroy_song", as: :admin_song
 
   resources :playlists, only: [ :create, :destroy, :edit, :update ] do
     resources :songs, only: [ :destroy ], controller: "playlist_songs"
