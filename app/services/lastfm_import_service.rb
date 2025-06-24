@@ -144,7 +144,8 @@ class LastfmImportService
       name: album_data['name'],
       release_date: parse_release_date(album_data['releasedate']),
       rating: calculate_rating(album_data),
-      album_image_url: extract_image_url(album_data['image'])
+      album_image_url: extract_image_url(album_data['image']),
+      bio: extract_album_bio(album_data)
     )
     
     # Create artist mapping
@@ -204,6 +205,66 @@ class LastfmImportService
     
     # Clean up the bio text
     bio.gsub(/<[^>]*>/, '').strip.truncate(500)
+  end
+
+  def extract_album_bio(album_data)
+    return nil unless album_data
+    
+    # Try to extract from wiki field (if available)
+    if album_data['wiki'] && album_data['wiki']['summary']
+      bio = album_data['wiki']['summary']
+    elsif album_data['wiki'] && album_data['wiki']['content']
+      bio = album_data['wiki']['content']
+    else
+      # Fall back to generating a bio from available metadata
+      bio = generate_album_bio_from_metadata(album_data)
+    end
+    
+    return nil unless bio && !bio.strip.empty?
+    
+    # Clean up the bio text and limit length
+    bio.gsub(/<[^>]*>/, '').strip.truncate(800)
+  end
+
+  def generate_album_bio_from_metadata(album_data)
+    return nil unless album_data['name'] && album_data['artist']
+    
+    parts = []
+    
+    # Add basic album info
+    if album_data['releasedate'] && !album_data['releasedate'].strip.empty?
+      release_year = parse_release_date(album_data['releasedate'])&.year
+      parts << "Released in #{release_year}" if release_year
+    end
+    
+    # Add listener/playcount info if significant
+    if album_data['listeners'] && album_data['listeners'].to_i > 10000
+      listeners = album_data['listeners'].to_i
+      parts << "with over #{format_number(listeners)} listeners on Last.fm"
+    end
+    
+    # Add genre information from tags
+    if album_data['toptags'] && album_data['toptags']['tag']
+      tags = album_data['toptags']['tag']
+      tags = [tags] unless tags.is_a?(Array)
+      genre_names = tags.first(3).map { |tag| tag['name'] }.join(', ')
+      parts << "featuring #{genre_names} music" unless genre_names.empty?
+    end
+    
+    return nil if parts.empty?
+    
+    "#{album_data['name']} by #{album_data['artist']['name'] || album_data['artist']}. #{parts.join(', ')}."
+  end
+
+  def format_number(num)
+    case num
+    when 1_000_000..Float::INFINITY
+      "#{(num / 1_000_000.0).round(1)}M"
+    when 1_000..999_999
+      "#{(num / 1_000.0).round(1)}K"
+    else
+      num.to_s
+    end
   end
 
   def extract_wiki_summary(wiki_data)
