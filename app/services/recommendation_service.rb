@@ -70,10 +70,7 @@ class RecommendationService
     @logger.info "   - Looking for trending albums from last 6 months"
     
     albums = Album.with_associations
-                  .joins(:reviews)
-                  .where('albums.created_at > ?', 6.months.ago)
-                  .group('albums.id')
-                  .order(Arel.sql('AVG(reviews.rating) DESC, COUNT(reviews.id) DESC'))
+                  .order(:rating)
                   .limit(limit)
     
     @logger.info "   - Found #{albums.count} trending albums"
@@ -151,14 +148,14 @@ class RecommendationService
     begin
       viewed_genres = user.user_behavior_logs
                           .where(action: 'view_album')
-                          .where('created_at > ?', 30.days.ago)
+                          .where('user_behavior_logs.created_at > ?', 30.days.ago)
                           .joins(album: :genres)
-                          .select('genres.id, genres.name')
-                          .group('genres.id, genres.name')
+                          .select('genres.id, genres.genre_name')
+                          .group('genres.id, genres.genre_name')
                           .order(Arel.sql('COUNT(*) DESC'))
                           .limit(8)
       
-      viewed_genre_names = viewed_genres.pluck('genres.name')
+      viewed_genre_names = viewed_genres.pluck('genres.genre_name')
       viewed_genre_ids = viewed_genres.pluck('genres.id')
       @logger.info "     Found #{viewed_genre_ids.length} viewed genres: #{viewed_genre_names.join(', ')}"
     rescue => e
@@ -172,12 +169,12 @@ class RecommendationService
     begin
       playlist_genres = user.playlists
                             .joins(songs: { album: :genres })
-                            .select('genres.id, genres.name')
-                            .group('genres.id, genres.name')
+                            .select('genres.id, genres.genre_name')
+                            .group('genres.id, genres.genre_name')
                             .order(Arel.sql('COUNT(*) DESC'))
                             .limit(5)
       
-      playlist_genre_names = playlist_genres.pluck('genres.name')
+      playlist_genre_names = playlist_genres.pluck('genres.genre_name')
       playlist_genre_ids = playlist_genres.pluck('genres.id')
       @logger.info "     Found #{playlist_genre_ids.length} playlist genres: #{playlist_genre_names.join(', ')}"
     rescue => e
@@ -192,12 +189,12 @@ class RecommendationService
       review_genres = user.reviews
                           .where('reviews.rating >= ?', 4.0)
                           .joins(album: :genres)
-                          .select('genres.id, genres.name')
-                          .group('genres.id, genres.name')
+                          .select('genres.id, genres.genre_name')
+                          .group('genres.id, genres.genre_name')
                           .order(Arel.sql('AVG(reviews.rating) DESC'))
                           .limit(3)
       
-      review_genre_names = review_genres.pluck('genres.name')
+      review_genre_names = review_genres.pluck('genres.genre_name')
       review_genre_ids = review_genres.pluck('genres.id')
       @logger.info "     Found #{review_genre_ids.length} review genres: #{review_genre_names.join(', ')}"
     rescue => e
@@ -222,7 +219,7 @@ class RecommendationService
     begin
       viewed_artists = user.user_behavior_logs
                            .where(action: 'view_album')
-                           .where('created_at > ?', 30.days.ago)
+                           .where('user_behavior_logs.created_at > ?', 30.days.ago)
                            .joins(album: :artists)
                            .select('artists.id, artists.name')
                            .group('artists.id, artists.name')
