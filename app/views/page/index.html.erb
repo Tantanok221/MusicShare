@@ -4,7 +4,7 @@
         <h3 class="text-black text-2xl pt-2 font-semibold">
             Recommend Album For You
         </h3>
-        <div class="flex flex-row gap-12">
+        <div class="grid grid-cols-4 gap-12">
             <% @albums.each do |album| %>
             <%= render(AlbumComponent.new(album: album)) %>
             <% end %>
