@@ -35,7 +35,7 @@ class AlbumsController < ApplicationController
 
 
   def album_params
-    params.require(:album).permit(:name, :album_image_url, :rating,
+    params.require(:album).permit(:name, :album_image_url, :rating, :bio,
     album_external_links_attributes: [ :album_id, :platform, :url, :_destroy ])
   end
 end

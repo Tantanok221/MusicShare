@@ -36,6 +36,16 @@
                     </div>
                 </div>
 
+                <%# Bio Section %>
+                <% if @album.bio.present? %>
+                <div class="space-y-3">
+                    <h3 class="font-semibold">About this Album</h3>
+                    <div class="text-sm text-muted-foreground leading-relaxed">
+                        <%= simple_format(@album.bio) %>
+                    </div>
+                </div>
+                <% end %>
+
                 <%# Songs List %>
                 <div class="space-y-3">
                     <h3 class="font-semibold">Songs</h3>

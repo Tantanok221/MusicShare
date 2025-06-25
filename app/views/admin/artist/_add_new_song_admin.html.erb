@@ -1,0 +1,28 @@
+<div x-data="{ showModal: false }">
+  <!--     x-effect="document.body.classList.toggle('overflow-hidden', showModal)"> making the page not scrollable after clicking in the modal-->
+  <div class="flex justify-end">
+    <button @click="showModal = true" class="flex justify-center hover:bg-gray-50 rounded-lg border items-center gap-1 self-stretch font-medium text-sm rounded px-3 py-2">
+      <%= phosphor_icon "plus", class: "h-3.5 w-3.5" %>
+      Add New Song
+    </button>
+  </div>
+
+  <div x-show="showModal" x-transition.opacity x-cloak class="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"></div>
+  <div x-show="showModal" x-transition x-cloak class="fixed z-50 top-1/2 left-1/2 w-[90%] max-w-sm -translate-x-1/2 -translate-y-1/2 py-5 px-6 bg-white outline outline-1 rounded-xl shadow-lg space-y-4">
+    <div class="flex justify-between items-center">
+      <h2 class="text-xl font-semibold">Song Name</h2>
+      <button @click="showModal = false">
+        <%= phosphor_icon "x", class: "h-5 w-5" %>
+      </button>
+    </div>
+    <%= form_with model: Song.new, url: admin_album_songs_path(@album), method: :post, local: true, class: "space-y-4" do |form| %>
+      <%= form.text_field :title, placeholder: "Song Name...", class: "w-full px-3 py-1.5 border rounded-md text-sm font-normal" %>
+      <%= form.hidden_field :album_id, value: @album.id %>
+
+      <button class="flex justify-center items-center w-full px-4 py-2 text-sm rounded-md bg-primary text-primary-foreground gap-1" @click="showModal = false">
+        <%= phosphor_icon "plus", class: "h-3.5 w-3.5" %>
+        Add New Song
+      </button>
+    <% end %>
+  </div>
+</div>
