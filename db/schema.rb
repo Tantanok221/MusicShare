@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_22_025435) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_25_064606) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -49,6 +49,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_22_025435) do
     t.datetime "release_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "bio"
   end
 
   create_table "artists", force: :cascade do |t|
@@ -130,10 +131,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_22_025435) do
 
   create_table "user_behavior_logs", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "song_id", null: false
+    t.integer "song_id"
     t.string "action"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "album_id"
     t.index ["song_id"], name: "index_user_behavior_logs_on_song_id"
     t.index ["user_id"], name: "index_user_behavior_logs_on_user_id"
   end

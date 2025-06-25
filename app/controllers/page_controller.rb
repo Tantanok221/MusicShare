@@ -1,6 +1,6 @@
 class PageController < ApplicationController
   def index
-    @albums = Album.with_associations.highest_rated.limit(4)
+    @albums = RecommendationService.new(current_user).recommendations(8)
   end
 
   def playlist_details
@@ -24,5 +24,14 @@ class PageController < ApplicationController
 
   def album_details
     @album = Album.with_associations.find(params[:id])
+    
+    # Track album view for logged in users
+    if user_signed_in?
+      UserBehaviorLog.create!(
+        user: current_user,
+        album: @album,
+        action: 'view_album'
+      )
+    end
   end
 end
