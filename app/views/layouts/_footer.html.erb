@@ -12,7 +12,15 @@
       </h2>
       <div>
         <div class="flex flex-col gap-1.5">
-          <%= link_to "Home", root_path, class: "text-muted-foreground text-xs" %>
+          <%= link_to "Home", root_path, class: "text-muted-foreground text-xs hover:text-foreground transition-colors" %>
+          <%= link_to "Discover Albums", search_path, class: "text-muted-foreground text-xs hover:text-foreground transition-colors" %>
+          <%= link_to "My Playlists", list_index_path, class: "text-muted-foreground text-xs hover:text-foreground transition-colors" %>
+          <% if user_signed_in? %>
+            <%= link_to "My Profile", profile_path(current_user.username), class: "text-muted-foreground text-xs hover:text-foreground transition-colors" %>
+            <% if admin_user? %>
+              <%= link_to "Admin Panel", admin_home_path, class: "text-muted-foreground text-xs hover:text-foreground transition-colors" %>
+            <% end %>
+          <% end %>
         </div>
       </div>
     </div>
