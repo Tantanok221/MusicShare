@@ -8,5 +8,8 @@
 <% if current_user.present? %>
 <%= render UserListComponent.new(current_user: current_user) %>
 <% else %>
-<div>User not login yet</div>
+<div class="text-center py-8">
+    <p class="text-muted-foreground text-lg mb-4">Please sign in to view and create your playlists</p>
+    <%= link_to "Sign In", new_user_session_path, class: "inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md bg-primary text-primary-foreground hover:bg-primary/90" %>
+</div>
 <% end %>

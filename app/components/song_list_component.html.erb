@@ -4,12 +4,22 @@
             <% @songs.each do |song| %>
             <div class="flex items-center justify-between py-4 first:pt-0 last:pb-0 border-b last:border-0">
                 <div class="flex items-center gap-4 flex-1">
-                    <div class="overflow-hidden rounded-md">
+                    <%= link_to album_details_path(song.album.id), class: "overflow-hidden rounded-md hover:opacity-80 transition-opacity" do %>
                         <img src="<%= song.album.album_image_url %>" alt="<%= song.album.name %>" class="h-12 w-12 object-cover" />
-                    </div>
+                    <% end %>
                     <div class="grid gap-1">
-                        <div class="font-medium leading-none"><%= song.title %></div>
+                        <div class="font-medium leading-none">
+                            <%= link_to song.title, album_details_path(song.album.id), class: "hover:underline" %>
+                        </div>
                         <div class="text-sm text-muted-foreground"><%= song.artists.map(&:name).join(", ") %></div>
+                        <div class="flex items-center gap-2 mt-1">
+                            <% streaming_links(song.album).each do |link| %>
+                                <% icon_data = platform_icon(link.platform) %>
+                                <%= link_to link.url, target: "_blank", rel: "noopener", title: icon_data[:title], class: "inline-flex items-center justify-center rounded-md transition-colors hover:bg-accent hover:text-accent-foreground h-6 w-6" do %>
+                                    <%= phosphor_icon icon_data[:icon], class: icon_data[:class].gsub('h-5 w-5', 'h-4 w-4') %>
+                                <% end %>
+                            <% end %>
+                        </div>
                     </div>
                 </div>
 

@@ -4,7 +4,7 @@ class PageController < ApplicationController
   end
 
   def playlist_details
-    @playlist = Playlist.find(params[:id])
+    @playlist = Playlist.includes(songs: { album: :album_external_links }).find(params[:id])
   end
   def search
     @albums = Album.with_associations

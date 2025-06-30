@@ -56,6 +56,6 @@ class Album < ApplicationRecord
   }
 
   scope :with_associations, -> {
-    includes(:album_artist_mappings, :artists, :album_genre_mappings, :genres)
+    includes(:album_artist_mappings, :artists, :album_genre_mappings, :genres, :album_external_links)
   }
 end
